@@ -12,6 +12,9 @@ What is cow's opoonion about you?
 
 Review your saved commands by `$ keep show` or `$ keep list`.
 
+USAGE :
+* Save the commands you usually forget in ssh sessions
+
 ### Installation
 ```
 $ pip install keep
