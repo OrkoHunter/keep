@@ -12,5 +12,10 @@ What is cow's opoonion about you?
 
 Review your saved commands by `$ keep show` or `$ keep list`.
 
+### Installation
+```
+$ pip install keep
+```
+
 Happy Coding ! 
 
