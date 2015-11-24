@@ -2,9 +2,16 @@ from __future__ import print_function
 import getpass
 import sys
 
+def print_error_message():
+    print("Usages :\n1. keep [options]")
+    print("Options: show | list ")
+    print("2. keep <command_name> \n <brief_description_of_the_command>") 
+
 def main():
     command = sys.argv[1:]
-
+    if not command:
+        print_error_message()
+        sys.exit(2)
     if command[0] == 'show':
         try:
             f = open("/home/" + getpass.getuser() + "/.keep", 'r')
