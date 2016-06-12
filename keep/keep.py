@@ -8,7 +8,7 @@ KEEPN_FILE = HOME + '/.keep_info'  # File to store number of commands
 
 def print_error_message():
     print("Usages :\n1. keep [options]")
-    print("Options: show | list ")
+    print("Options: list | reset ")
     print("2. keep <command_name> \n <brief_description_of_the_command>")
 
 def main():
@@ -28,14 +28,19 @@ def main():
             print(str(cmdno) + "." + line[1:], end="")
         f.close()
     elif command[0] == 'reset':
-        try:
-            os.remove(KEEP_FILE)
-        except FileNotFoundError:
-            pass
-        try:
-            os.remove(KEEPN_FILE)
-        except FileNotFoundError:
-            pass
+        prompt = input("This will erase all of your stored commands. "
+                       "Proceed ? (y/N)")
+        if prompt.strip() in ('y', 'Y'):
+            try:
+                os.remove(KEEP_FILE)
+            except FileNotFoundError:
+                pass
+            try:
+                os.remove(KEEPN_FILE)
+            except FileNotFoundError:
+                pass
+        else:
+            print("Aborted.\n")
     else:
         if not os.path.exists(KEEPN_FILE):
             f = open(KEEPN_FILE, 'w')
