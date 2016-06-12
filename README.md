@@ -3,22 +3,32 @@ Keep and view terminal commands in terminal only
 
 ```sh
 $ keep watch -n 1 free -m
-To show RAM usage and time every second on terminal screen
+Description : To show RAM usage and time every second on terminal screen
 $ keep sl
-Stop the Train !
+Description : Stop the Train !
 $ keep "fortune | cowsay"
-What is cow's opoonion about you?
+Description : What is cow's opoonion about you?
 ```
 
-Review your saved commands by `$ keep show` or `$ keep list`.
+Review your saved commands by `$ keep list`.
+
+Use `grep` to search for a saved command.
+
+Example :
+```
+$ keep list | grep -i "ram usage"
+
+1. watch -n 1 free -m : To show RAM usage and time every second on terminal screen
+```
+
 
 USAGE :
 * Save the commands you usually forget in ssh sessions
 
 ### Installation
 ```
-$ pip install keep
+$ pip3 install keep
 ```
 
-Happy Coding ! 
+Happy Coding !
 

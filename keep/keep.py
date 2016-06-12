@@ -40,7 +40,7 @@ def main():
             except FileNotFoundError:
                 pass
         else:
-            print("Aborted.\n")
+            print("Aborted.")
     else:
         if not os.path.exists(KEEPN_FILE):
             f = open(KEEPN_FILE, 'w')
