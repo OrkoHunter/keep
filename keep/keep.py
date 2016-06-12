@@ -2,6 +2,9 @@ import sys
 import os
 
 HOME = os.path.expanduser('~')
+KEEP_FILE = HOME + '/.keep'  # File to store commands
+KEEPN_FILE = HOME + '/.keep_info'  # File to store number of commands
+
 
 def print_error_message():
     print("Usages :\n1. keep [options]")
@@ -13,40 +16,44 @@ def main():
     if not command:
         print_error_message()
         sys.exit(2)
-    if command[0] == 'show':
-        try:
-            f = open(HOME + "/.keep", 'r')
-        except IOError:
-            print("You have no saved commands")
-            sys.exit(2)
-        lineno = cmdno = 0
-        for line in f.readlines():
-            lineno += 1
-            if lineno % 2 != 0:
-                cmdno += 1
-                sys.stdout.write("-"*50 + "\n")
-                sys.stdout.write(str(cmdno) + ". " + line[2:])
-            else:
-                sys.stdout.write(line)
-        f.close()
     elif command[0] == 'list':
         try:
-            f = open(HOME + "/.keep", 'r')
+            f = open(KEEP_FILE, 'r')
         except IOError:
             print("You have no saved commands.")
             sys.exit(2)
         cmdno = 0
         for line in f.readlines():
-            if (line[0]=='$'):
-                cmdno += 1
-                print(str(cmdno) + ". " + line[2:], end="")
+            cmdno += 1
+            print(str(cmdno) + "." + line[1:], end="")
         f.close()
+    elif command[0] == 'reset':
+        try:
+            os.remove(KEEP_FILE)
+        except FileNotFoundError:
+            pass
+        try:
+            os.remove(KEEPN_FILE)
+        except FileNotFoundError:
+            pass
     else:
-        f = open(HOME + "/.keep", 'a')
+        if not os.path.exists(KEEPN_FILE):
+            f = open(KEEPN_FILE, 'w')
+            f.write('0\n')
+            f.close()
+
+        f = open(KEEP_FILE, 'a')
         new = ' '.join(command)
-        desc = sys.stdin.readline("Description : ")
-        f.write('$ ' + new + '\n')
-        f.write(desc)
+        desc = input("Description : ")
+        f.write('$ ' + new + ' : ')
+        f.write(desc + '\n')
+        f.close()
+
+        f = open(KEEPN_FILE, 'r')
+        n = int(f.readline())
+        f.close()
+        f = open(KEEPN_FILE, 'w')
+        f.write(str(n+1) + '\n')
         f.close()
 
 
@@ -54,7 +61,11 @@ def main():
     Structure of the file ~/.keep
     -----------------------------
 
-    First line, first word contains the number of commands already stored.
-    Next lines
+    $ + Command + : + Description
+
+    Structure of the file ~/.keep_info
+    ----------------------------------
+
+    Total count of commands saved
 """
 
