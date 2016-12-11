@@ -46,9 +46,21 @@ def main():
             f = open(KEEPN_FILE, 'w')
             f.write('0\n')
             f.close()
+            new=' '.join(command)
+        try:
+            f=open(KEEP_FILE,'r')
+            for line in f.readlines():
+                if new.strip() == (line.split(":")[0])[2:].strip():
+                    print("Command already present")
+                    print(line)
+                    f.close()
+                    sys.exit()
+            f.close()
+        except IOError:
+            print("You have no saved commands.")
+            pass       
 
         f = open(KEEP_FILE, 'a')
-        new = ' '.join(command)
         desc = input("Description : ")
         f.write('$ ' + new + ' : ')
         f.write(desc + '\n')
