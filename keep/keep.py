@@ -41,6 +41,25 @@ def main():
                 pass
         else:
             print("Aborted.")
+    elif command[0] == 'grep':
+        l=sys.argv[2:]
+        l=' '.join(l)
+        if not l:
+            print("No search terms")
+            sys.exit()
+        try:
+            f=open(KEEP_FILE,'r')
+            i=0
+            for line in f.readlines():
+                s=(line.split(":")[1]).strip()
+                if not s.find(l.strip())==-1:
+                    print(line)
+                    i+=1
+            if i==0:
+                print("No matched terms")
+            f.close()
+        except IOError:
+            print("You have no saved commands")
     else:
         if not os.path.exists(KEEPN_FILE):
             f = open(KEEPN_FILE, 'w')
