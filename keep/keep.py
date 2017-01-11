@@ -47,7 +47,7 @@ def main():
             print("Aborted.")
     elif command[0] == 'grep':
         sstring = sys.argv[2:]
-         = ' '.join(sstring)
+        sstring = ' '.join(sstring)
         if not sstring:
             print("No search terms")
             sys.exit()
