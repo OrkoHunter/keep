@@ -46,9 +46,9 @@ def main():
         else:
             print("Aborted.")
     elif command[0] == 'grep':
-        l = sys.argv[2:]
-        l = ' '.join(l)
-        if not l:
+        sstring = sys.argv[2:]
+         = ' '.join(sstring)
+        if not sstring:
             print("No search terms")
             sys.exit()
         try:
@@ -56,7 +56,7 @@ def main():
             i = 0
             for line in f.readlines():
                 s = (line.split(":")[1]).strip()
-                if not s.find(l.strip()) == -1:
+                if not s.find(sstring.strip()) == -1:
                     print(line)
                     i += 1
             if i == 0:
@@ -93,8 +93,7 @@ def main():
         f = open(KEEPN_FILE, 'w')
         f.write(str(n+1) + '\n')
         f.close()
-
-        
+      
 """
     Structure of the file ~/.keep
     -----------------------------
