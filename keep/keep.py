@@ -93,7 +93,8 @@ def main():
         f = open(KEEPN_FILE, 'w')
         f.write(str(n+1) + '\n')
         f.close()
-      
+
+
 """
     Structure of the file ~/.keep
     -----------------------------
