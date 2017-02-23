@@ -27,8 +27,9 @@ def check_update(forced=False):
         dates = []
     if not today in dates or forced:
         dates.append(today)
-        with open(update_check_file, 'w') as f:
-            f.write(json.dumps(dates))
+        if os.path.exists(update_check_file):
+            with open(update_check_file, 'w') as f:
+                f.write(json.dumps(dates))
         r = requests.get("https://pypi.python.org/pypi/keep/json").json()
         version = r['info']['version']
         curr_version = about.__version__
@@ -36,7 +37,7 @@ def check_update(forced=False):
             click.secho("Keep seems to be outdated. Current version = "
                         "{}, Latest version = {}".format(curr_version, version) +
                         "\n\nPlease update with ", bold=True, fg='red')
-            click.secho("\tpip install -U keep", fg='green')
+            click.secho("\tpip --no-cache-dir install -U keep==" + str(version), fg='green')
             sys.exit(0)
 
 
