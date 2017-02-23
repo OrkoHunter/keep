@@ -2,7 +2,7 @@ import click
 from keep.cli import pass_context
 
 
-@click.command('execute', short_help='Save a new command.')
+@click.command('run', short_help='Executes a saved command.')
 @pass_context
 def cli(ctx):
     """Saves a new command"""

@@ -2,7 +2,7 @@ import click
 from keep.cli import pass_context
 
 
-@click.command('pull', short_help='Save a new command.')
+@click.command('pull', short_help='Updates the local database with remote.')
 @pass_context
 def cli(ctx):
     """Saves a new command"""

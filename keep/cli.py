@@ -2,6 +2,7 @@ import os
 import sys
 import click
 
+from keep import utils
 
 CONTEXT_SETTINGS = dict(auto_envvar_prefix='KEEP')
 
@@ -51,10 +52,18 @@ class KeepCLI(click.MultiCommand):
         return mod.cli
 
 
-
 @click.command(cls=KeepCLI, context_settings=CONTEXT_SETTINGS)
 @click.option('-v', '--verbose', is_flag=True,
               help='Enables verbose mode.')
 @pass_context
 def cli(ctx, verbose):
+    """
+    Keep and view shell commands in terminal only.
+
+    Read more at https://orkohunter.net/keep
+    """
     ctx.verbose = verbose
+
+    dir_path = os.path.join(os.path.expanduser('~'), '.keep')
+    if not os.path.exists(dir_path):
+        utils.first_time_use(ctx)

@@ -1,13 +1,12 @@
 import click
-from keep.cli import pass_context
+from keep import cli, utils
 
-
-@click.command('new', short_help='Save a new command.')
-@pass_context
+@click.command('new', short_help='Saves a new command.')
+@cli.pass_context
 def cli(ctx):
     """Saves a new command"""
     cmd = click.prompt('Command : ')
     desc = click.prompt('Description : ')
+    utils.save_command(cmd, desc)
 
-    if ctx.verbose:
-        ctx.log('Initialized the repository')
+    utils.log(ctx, 'Initialized the repository')

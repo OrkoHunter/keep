@@ -2,7 +2,7 @@ import click
 from keep.cli import pass_context
 
 
-@click.command('push', short_help='Pushes the local database to remote.')
+@click.command('rm', short_help='Deletes a saved command.')
 @pass_context
 def cli(ctx):
     """Saves a new command"""
