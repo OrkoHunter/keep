@@ -106,7 +106,7 @@ def register():
             with open(credentials_file, 'w+') as f:
                 f.write(json.dumps(credentials))
             click.secho(password, fg='cyan')
-            click.secho("Credentials file saved at ~/.keep/.credentials", fg='green')
+            click.secho("Credentials file saved at ~/.keep/.credentials.json", fg='green')
     sys.exit(0)
 
 
