@@ -11,8 +11,15 @@ import requests
 # Directory for Keep files
 dir_path = os.path.join(os.path.expanduser('~'), '.keep')
 
-def save_command(cmd, desc):
 
+def save_command(cmd, desc):
+    json_path = os.path.join(dir_path, 'commands.json')
+    commands = {}
+    if os.path.exists(json_path):
+        commands = json.loads(open(json_path, 'r').read())
+    commands[cmd] = desc
+    with open(json_path, 'w') as f:
+        f.write(json.dumps(commands))
 
 
 def log(ctx, message):
