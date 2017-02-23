@@ -7,6 +7,7 @@ import sys
 import time
 import click
 import requests
+import tabulate
 
 # Directory for Keep files
 dir_path = os.path.join(os.path.expanduser('~'), '.keep')
@@ -24,6 +25,15 @@ def first_time_use(ctx):
 
     register()
     sys.exit(0)
+
+
+def list_commands(ctx):
+    json_path = os.path.join(dir_path, 'commands.json')
+    commands = json.loads(open(json_path, 'r').read())
+    table = []
+    for cmd, desc in commands.items():
+        table.append([cmd, desc])
+    print(tabulate.tabulate(table, headers=['Command', 'Description']))
 
 
 def log(ctx, message):
