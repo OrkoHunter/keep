@@ -37,7 +37,7 @@ Installation
 
     $ pip install keep
 
-You can install pip using apt-get as ``sudo apt install python-pip`.
+You can install pip using apt-get as ``sudo apt install python-pip``.
 
 
 =====
