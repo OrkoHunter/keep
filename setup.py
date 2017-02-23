@@ -4,21 +4,22 @@
 import sys
 from setuptools import setup
 
-NAME = 'keep'
-VERSION = '1.1'
-
 if __name__ == "__main__":
     setup(
-            name = NAME,
-            version = VERSION,
-            author = 'Himanshu Mishra',
-            author_email = 'himanshumishra@iitkgp.ac.in',
-            description = 'Personal shell command keeper',
-            packages = ['keep'],
-            entry_points = {
-                'console_scripts': [
-                    'keep = keep.keep:main'
-                    ]
-                },
-            )
+        name = 'keep',
+        version = 0.1,
+        author = 'Himanshu Mishra',
+        author_email = 'himanshumishra@iitkgp.ac.in',
+        description = 'Personal shell command keeper',
+        packages = ['keep', 'keep.commands'],
+        include_package_data=True,
+        install_requires=[
+            'click',
+        ],
+        entry_points = {
+            'console_scripts': [
+                'keep = keep.cli:cli'
+            ],
+        },
+    )
 
