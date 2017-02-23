@@ -1,36 +1,51 @@
-keep
+Keep - A Meta CLI toolkit
+=========================
+    Your personal shell command keeper
+
+
+====
+Why?
 ====
 
-Keep and view terminal commands in terminal only
+Raj love's using the command line.
 
-.. code:: sh
+Raj googles "How to do X in terminal?" and multiple forums and blog posts finally provide him the magical *command* for the rescue. Problem Solved !
 
-    $ keep watch -n 1 free -m
-    Description : To show RAM usage and time every second on terminal screen
-    $ keep sl
-    Description : Stop the Train !
-    $ keep "fortune | cowsay"
-    Description : What is cow's opoonion about you?
+Fast forward couple weeks, Raj has to do X in terminal, again. Raj remembers solving this few weeks ago. Let him do a reverse-i-search with *Ctrl+R*. Nope, can't remember sh*t. Browser search history? 25 web pages found matching *X*. Argh!
 
-Review your saved commands by ``$ keep list``.
+Raj finally finds the solution. From this time Raj starts writing the commands somewhere online for the future.
 
-Use ``grep`` to search for a saved command.
+Wait, why shouldn't he keep the command in his terminal itself if this is only place where he'll ever have use it?
 
-Example :
 
-::
+========
+Features
+========
 
-    $ keep list | grep -i "ram usage"
+- Save a new command with a brief description
+- Search the saved commands using powerful patterns
+- Save the commands on the remote on the server
+- Use ``keep push`` and ``keep pull`` to syn the commands between all your computers.
 
-    1. watch -n 1 free -m : To show RAM usage and time every second on terminal screen
 
-USAGE : \* Save the commands you usually forget in ssh sessions
+**ProTip : Save the commands you usually forget in ssh sessions and sync it with your local machine.**
 
 Installation
 ~~~~~~~~~~~~
 
 ::
 
-    $ pip3 install keep
+    $ pip install keep
 
-Happy Coding !
+You can install pip using apt-get as ``sudo apt install python-pip`.
+
+
+----
+
+
+Not a command line fanatic? Here are some resources for you :
+
+- https://github.com/jlevy/the-art-of-command-line
+- https://github.com/herrbischoff/awesome-osx-command-line
+- https://github.com/alebcay/awesome-shell
+- https://github.com/aharris88/awesome-cli-apps

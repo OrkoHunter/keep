@@ -32,7 +32,7 @@ def list_commands(ctx):
     commands = json.loads(open(json_path, 'r').read())
     table = []
     for cmd, desc in commands.items():
-        table.append([cmd, desc])
+        table.append(['$ ' + cmd, desc])
     print(tabulate.tabulate(table, headers=['Command', 'Description']))
 
 

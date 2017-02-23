@@ -15,7 +15,7 @@ if __name__ == "__main__":
     setup(
         name = 'keep',
         packages = ['keep', 'keep.commands'],
-        version = "1.3.1",
+        version = "1.4",
         description = 'Personal shell command keeper',
         long_description = long_description,
         author = 'Himanshu Mishra',
