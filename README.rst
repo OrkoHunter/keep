@@ -40,6 +40,34 @@ Installation
 You can install pip using apt-get as ``sudo apt install python-pip`.
 
 
+=====
+Usage
+=====
+
+::
+
+    Usage: keep [OPTIONS] COMMAND [ARGS]...
+
+      Keep and view shell commands in terminal only.
+
+      Read more at https://orkohunter.net/keep
+
+    Options:
+      -v, --verbose  Enables verbose mode.
+      --help         Show this message and exit.
+
+    Commands:
+      grep      Searches for a saved command.
+      init      Initializes the CLI.
+      list      Show the saved commands.
+      new       Saves a new command.
+      pull      Updates the local database with remote.
+      push      Pushes the local database to remote.
+      register  Register user over server.
+      rm        Deletes a saved command.
+      run       Executes a saved command.
+
+
 ----
 
 
