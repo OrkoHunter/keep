@@ -70,6 +70,8 @@ Usage
       run       Executes a saved command.
 
 
+`See the detailed usage and tutorial. <https://github.com/OrkoHunter/keep/blob/master/tutorial.md>`_
+
 ==========
 Contribute
 ==========
