@@ -36,7 +36,8 @@ class KeepCLI(click.MultiCommand):
         dir_path = os.path.join(os.path.expanduser('~'), '.keep')
         if not os.path.exists(dir_path):
             utils.first_time_use(ctx)
-        utils.check_update()
+        else:
+            utils.check_update()
 
         rv = []
         for filename in os.listdir(cmd_folder):
