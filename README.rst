@@ -3,11 +3,13 @@ Keep - A Meta CLI toolkit
     Your personal shell command keeper
 
 
+.. image:: data/keep.gif
+
 ====
 Why?
 ====
 
-Raj love's using the command line.
+Raj loves using the command line.
 
 Raj googles "How to do X in terminal?" and multiple forums and blog posts finally provide him the magical *command* for the rescue. Problem Solved !
 

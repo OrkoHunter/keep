@@ -18,7 +18,7 @@ def cli(ctx, pattern):
         for cmd, desc in json.loads(open(json_path, 'r').read()).items():
             if re.search(pattern, cmd + " :: " + desc):
                 FOUND = True
-                click.secho(cmd + " :: " + desc, fg='green')
+                click.secho('$ ' + cmd + " :: " + desc, fg='green')
                 break
             # Show if all the parts of the pattern are in one command/desc
             keywords_len = len(pattern.split())
@@ -28,7 +28,7 @@ def cli(ctx, pattern):
                     FOUND = True
                     i_keyword += 1
             if i_keyword == keywords_len:
-                click.secho(cmd + " :: " + desc, fg='green')
+                click.secho('$ ' + cmd + " :: " + desc, fg='green')
                 break
         if not FOUND:
             click.echo('No saved commands matches the pattern "{}"'.format(pattern))
