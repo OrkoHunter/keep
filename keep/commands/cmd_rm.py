@@ -1,15 +1,10 @@
 import click
-from keep.cli import pass_context
+from keep import cli, utils
 
 
 @click.command('rm', short_help='Deletes a saved command.')
-@pass_context
+@cli.pass_context
 def cli(ctx):
     """Saves a new command"""
-    cmd = click.prompt('Command : ')
-    desc = click.prompt('Description : ')
-    print(type(cmd))
-    print(type(desc))
-
-    if ctx.verbose:
-        ctx.log('Initialized the repository')
+    cmd = click.prompt('Command to remove')
+    utils.remove_command(ctx, cmd)

@@ -12,22 +12,6 @@ import requests
 dir_path = os.path.join(os.path.expanduser('~'), '.keep')
 
 
-def save_command(cmd, desc):
-    json_path = os.path.join(dir_path, 'commands.json')
-    commands = {}
-    if os.path.exists(json_path):
-        commands = json.loads(open(json_path, 'r').read())
-    commands[cmd] = desc
-    with open(json_path, 'w') as f:
-        f.write(json.dumps(commands))
-
-
-def log(ctx, message):
-    """Prints log when verbose set to True."""
-    if ctx.verbose:
-        ctx.log(message)
-
-
 def first_time_use(ctx):
     click.secho("Initializing environment in ~/.keep directory", fg='green')
     for i in range(2):
@@ -39,6 +23,12 @@ def first_time_use(ctx):
 
     register()
     sys.exit(0)
+
+
+def log(ctx, message):
+    """Prints log when verbose set to True."""
+    if ctx.verbose:
+        ctx.log(message)
 
 
 def register():
@@ -81,3 +71,29 @@ def register():
             click.secho("Credentials file saved at ~/.keep/.credentials", fg='green')
     sys.exit(0)
 
+
+def remove_command(ctx, cmd):
+    json_path = os.path.join(dir_path, 'commands.json')
+    commands = {}
+    if os.path.exists(json_path):
+        commands = json.loads(open(json_path, 'r').read())
+    else:
+        click.echo('No commands to remove. Run `keep new` to add one.')
+
+    if cmd in commands:
+        del commands[cmd]
+        click.echo('Command successfully removed!')
+        with open(json_path, 'w') as f:
+            f.write(json.dumps(commands))
+    else:
+        click.echo('Command - {} - does not exist.'.format(cmd))
+
+
+def save_command(cmd, desc):
+    json_path = os.path.join(dir_path, 'commands.json')
+    commands = {}
+    if os.path.exists(json_path):
+        commands = json.loads(open(json_path, 'r').read())
+    commands[cmd] = desc
+    with open(json_path, 'w') as f:
+        f.write(json.dumps(commands))

@@ -9,4 +9,4 @@ def cli(ctx):
     desc = click.prompt('Description ')
     utils.save_command(cmd, desc)
 
-    utils.log(ctx, 'Initialized the repository')
+    utils.log(ctx, 'Saved the new command - {} - with the description - {}.'.format(cmd, desc))
