@@ -7,7 +7,7 @@ from setuptools import setup
 if __name__ == "__main__":
     setup(
         name = 'keep',
-        version = 0.1,
+        version = 1.2,
         author = 'Himanshu Mishra',
         author_email = 'himanshumishra@iitkgp.ac.in',
         description = 'Personal shell command keeper',
