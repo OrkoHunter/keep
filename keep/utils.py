@@ -10,7 +10,8 @@ import requests
 
 # Directory for Keep files
 dir_path = os.path.join(os.path.expanduser('~'), '.keep')
-
+# URL for the API
+api_url = 'https://keep-cli.herokuapp.com'
 
 def first_time_use(ctx):
     click.secho("Initializing environment in ~/.keep directory", fg='green')
@@ -29,6 +30,18 @@ def log(ctx, message):
     """Prints log when verbose set to True."""
     if ctx.verbose:
         ctx.log(message)
+
+
+def push(ctx):
+    credentials_file = os.path.join(dir_path, '.credentials')
+    credentials = json.loads(open(credentials_file, 'r').read())
+    json_path = os.path.join(dir_path, 'commands.json')
+    credentials['commands'] = open(json_path).read()
+    url = api_url + '/push'
+    if click.confirm("This will overwrite the saved commands on the server. Proceed?", default=True):
+        r = requests.post(url, json=credentials)
+        if r.status_code == 200:
+            click.echo("Server successfully updated.")
 
 
 def register():
