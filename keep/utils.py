@@ -8,8 +8,11 @@ import time
 import click
 import requests
 
+# Directory for Keep files
+dir_path = os.path.join(os.path.expanduser('~'), '.keep')
+
 def save_command(cmd, desc):
-    pass
+
 
 
 def log(ctx, message):
@@ -25,11 +28,13 @@ def first_time_use(ctx):
         time.sleep(0.5)
     click.echo('.OK', nl=True)
 
-    # Directory for Keep files
-    dir_path = os.path.join(os.path.expanduser('~'), '.keep')
-
     os.mkdir(dir_path)
 
+    register()
+    sys.exit(0)
+
+
+def register():
     # User may not choose to register and work locally.
     # Registration is required to push the commands to server
     if click.confirm('Proceed to register?', abort=True, default=True):
