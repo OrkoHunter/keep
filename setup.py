@@ -15,6 +15,8 @@ if __name__ == "__main__":
         include_package_data=True,
         install_requires=[
             'click',
+            'request',
+            'tabulate'
         ],
         entry_points = {
             'console_scripts': [
