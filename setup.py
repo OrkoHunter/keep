@@ -6,6 +6,8 @@ import os
 import sys
 from setuptools import setup
 
+from keep import about
+
 here = os.path.abspath(os.path.dirname(__file__))
 
 with codecs.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
@@ -13,9 +15,9 @@ with codecs.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 if __name__ == "__main__":
     setup(
-        name = 'keep',
+        name = about.__name__,
         packages = ['keep', 'keep.commands'],
-        version = "1.4",
+        version = about.__version__,
         description = 'Personal shell command keeper',
         long_description = long_description,
         author = 'Himanshu Mishra',

@@ -45,5 +45,7 @@
   <dt><a href="https://github.com/OrkoHunter/keep/blob/master/keep/commands/cmd_run.py">run</a> "PATTERN".</dt>
   <dd>Executes a saved command.<br><br>Pattern works in the same way as in <code>keep grep</code></dd>
 
+  <dt><a href="https://github.com/OrkoHunter/keep/blob/master/keep/commands/cmd_update.py">update</a>.</dt>
+  <dd>Checks for an update on pypi.</dd>
 
 </dl>

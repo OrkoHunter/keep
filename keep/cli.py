@@ -33,6 +33,11 @@ pass_context = click.make_pass_decorator(Context, ensure=True)
 class KeepCLI(click.MultiCommand):
 
     def list_commands(self, ctx):
+        utils.check_update()
+        dir_path = os.path.join(os.path.expanduser('~'), '.keep')
+        if not os.path.exists(dir_path):
+            utils.first_time_use(ctx)
+
         rv = []
         for filename in os.listdir(cmd_folder):
             if filename.endswith('.py') and \
@@ -63,7 +68,3 @@ def cli(ctx, verbose):
     Read more at https://orkohunter.net/keep
     """
     ctx.verbose = verbose
-
-    dir_path = os.path.join(os.path.expanduser('~'), '.keep')
-    if not os.path.exists(dir_path):
-        utils.first_time_use(ctx)

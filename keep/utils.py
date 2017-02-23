@@ -1,4 +1,5 @@
 """Utility functions of the cli."""
+import datetime
 import json
 import os
 import random
@@ -9,10 +10,35 @@ import click
 import requests
 import tabulate
 
+from keep import about
+
 # Directory for Keep files
 dir_path = os.path.join(os.path.expanduser('~'), '.keep')
 # URL for the API
 api_url = 'https://keep-cli.herokuapp.com'
+
+
+def check_update(forced=False):
+    update_check_file = os.path.join(dir_path, 'update_check.json')
+    today = datetime.date.today().strftime("%D")
+    if os.path.exists(update_check_file):
+        dates = json.loads(open(update_check_file, 'r').read())
+    else:
+        dates = []
+    if not today in dates or forced:
+        dates.append(today)
+        with open(update_check_file, 'w') as f:
+            f.write(json.dumps(dates))
+        r = requests.get("https://pypi.python.org/pypi/keep/json").json()
+        version = r['info']['version']
+        curr_version = about.__version__
+        if version != curr_version:
+            click.secho("Keep seems to be outdated. Current version = "
+                        "{}, Latest version = {}".format(curr_version, version) +
+                        "\n\nPlease update with ", bold=True, fg='red')
+            click.secho("\tpip install -U keep", fg='green')
+            sys.exit(0)
+
 
 def first_time_use(ctx):
     click.secho("Initializing environment in ~/.keep directory", fg='green')
