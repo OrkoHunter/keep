@@ -20,7 +20,7 @@ def cli(ctx, pattern):
                 FOUND = True
                 if click.confirm("Execute\n\n\t{}\n\n\n?".format(cmd), default=True):
                     os.system(cmd)
-                    break
+                break
             # Execute if all the parts of the pattern are in one command/desc
             keywords_len = len(pattern.split())
             i_keyword = 0
