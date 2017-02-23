@@ -44,6 +44,21 @@ def push(ctx):
             click.echo("Server successfully updated.")
 
 
+def pull(ctx):
+    credentials_file = os.path.join(dir_path, '.credentials')
+    credentials = json.loads(open(credentials_file, 'r').read())
+    json_path = os.path.join(dir_path, 'commands.json')
+    url = api_url + '/pull'
+    commands = {}
+    if click.confirm("This will overwrite the locally saved commands. Proceed?", default=True):
+        r = requests.post(url, json=credentials)
+        if r.status_code == 200:
+            commands = r.json()['commands']
+            with open(json_path, 'w') as f:
+                f.write(str(commands))
+            click.echo("Local database successfully updated.")
+
+
 def register():
     # User may not choose to register and work locally.
     # Registration is required to push the commands to server

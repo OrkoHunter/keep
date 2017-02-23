@@ -1,15 +1,15 @@
+import os
 import click
-from keep.cli import pass_context
+from keep import cli, utils
 
 
 @click.command('pull', short_help='Updates the local database with remote.')
-@pass_context
+@cli.pass_context
 def cli(ctx):
-    """Saves a new command"""
-    cmd = click.prompt('Command : ')
-    desc = click.prompt('Description : ')
-    print(type(cmd))
-    print(type(desc))
-
-    if ctx.verbose:
-        ctx.log('Initialized the repository')
+    """Updates the local database with remote."""
+    credentials_path = os.path.join(os.path.expanduser('~'), '.keep', '.credentials')
+    if not os.path.exists(credentials_path):
+        click.echo('You are not registered.')
+        utils.register()
+    else:
+        utils.pull(ctx)
