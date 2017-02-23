@@ -3,7 +3,7 @@ Keep - A Meta CLI toolkit
     Your personal shell command keeper
 
 
-.. image:: data/keep.gif
+.. image:: https://raw.githubusercontent.com/OrkoHunter/keep/master/data/keep.gif
 
 ====
 Why?

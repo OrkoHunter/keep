@@ -33,10 +33,10 @@ pass_context = click.make_pass_decorator(Context, ensure=True)
 class KeepCLI(click.MultiCommand):
 
     def list_commands(self, ctx):
-        utils.check_update()
         dir_path = os.path.join(os.path.expanduser('~'), '.keep')
         if not os.path.exists(dir_path):
             utils.first_time_use(ctx)
+        utils.check_update()
 
         rv = []
         for filename in os.listdir(cmd_folder):
