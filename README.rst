@@ -68,6 +68,16 @@ Usage
       run       Executes a saved command.
 
 
+==========
+Contribute
+==========
+
+This is a very young project. If you have got any suggestions for new features or improvements, please comment over `here <https://github.com/OrkoHunter/keep/issues/11>`_. Pull Requests are most welcome !
+
+
+❤
+
+
 ----
 
 
