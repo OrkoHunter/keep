@@ -1,13 +1,17 @@
-Keep - A Meta CLI toolkit
-=========================
+|logo|
+
+A Meta CLI toolkit
+==================
     Your personal shell command keeper
 
 
+.. |logo| image:: https://raw.githubusercontent.com/OrkoHunter/keep/master/data/logo.png
+
 .. image:: https://raw.githubusercontent.com/OrkoHunter/keep/master/data/keep.gif
 
-====
+
 Why?
-====
+----
 
 Raj loves using the command line.
 
