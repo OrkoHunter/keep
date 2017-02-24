@@ -24,9 +24,9 @@ Raj finally finds the solution. From this time Raj starts writing the commands s
 Wait, why shouldn't he keep the command in his terminal itself if this is only place where he'll ever have use it?
 
 
-========
+
 Features
-========
+--------
 
 - Save a new command with a brief description
 - Search the saved commands using powerful patterns
@@ -37,7 +37,7 @@ Features
 **ProTip : Save the commands you usually forget in ssh sessions and sync it with your local machine.**
 
 Installation
-~~~~~~~~~~~~
+------------
 
 ::
 
@@ -46,9 +46,8 @@ Installation
 You can install pip using apt-get as ``sudo apt install python-pip``.
 
 
-=====
 Usage
-=====
+-----
 
 ::
 
@@ -72,6 +71,7 @@ Usage
       register  Register user over server.
       rm        Deletes a saved command.
       run       Executes a saved command.
+      update    Check for an update of Keep.
 
 
 `See the detailed usage and tutorial. <https://github.com/OrkoHunter/keep/blob/master/tutorial.md>`_
