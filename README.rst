@@ -31,7 +31,7 @@ Features
 - Save a new command with a brief description
 - Search the saved commands using powerful patterns
 - Save the commands on the remote on the server
-- Use ``keep push`` and ``keep pull`` to syn the commands between all your computers.
+- Use ``keep push`` and ``keep pull`` to sync the commands between all your computers.
 
 
 **ProTip : Save the commands you usually forget in ssh sessions and sync it with your local machine.**
