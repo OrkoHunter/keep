@@ -9,7 +9,7 @@
  - It generates a 255 bit password for you. It is then stored inside your `~/.keep/.credentials` file.
  - Start saving commands using `keep new`.
  - Once you have saved couple of commands, start using `keep grep`.
-  - This is not exactly similar to `keep list | grep` as `keep grep` searches is more powerful.
+  - This is not exactly similar to `keep list | grep` as `keep grep` search is more powerful.
  - Now it's time to store the commands on the server. Use `keep push`.
  - If you have got another computer, install `keep` on it. Do `keep init` and skip registration. Copy your `~/.keep/.credentials` over to that computer in the same location.
  - Do `keep pull` to retrieve all the saved commands.
