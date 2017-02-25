@@ -13,13 +13,13 @@ A Meta CLI toolkit
 Why?
 ----
 
-Raj loves using the command line.
+Writwick Wraj loves using the command line.
 
-Raj googles "How to do X in terminal?" and multiple forums and blog posts finally provide him the magical *command* for the rescue. Problem Solved !
+Writwick googles "How to do X in terminal?" and multiple forums and blog posts finally provide him the magical *command* for the rescue. Problem Solved !
 
-Fast forward couple weeks, Raj has to do X in terminal, again. Raj remembers solving this few weeks ago. Let him do a reverse-i-search with *Ctrl+R*. Nope, can't remember sh*t. Browser search history? 25 web pages found matching *X*. Argh!
+Fast forward couple weeks, Writwick has to do X in terminal, again. Wraj remembers solving this few weeks ago. Let him do a reverse-i-search with *Ctrl+R*. Nope, can't remember sh*t. Browser search history? 25 web pages found matching *X*. Argh!
 
-Raj finally finds the solution. From this time Raj starts writing the commands somewhere online for the future.
+Writwik finally finds the solution. From this time Writwik starts writing the commands somewhere online for the future.
 
 Wait, why shouldn't he keep the command in his terminal itself if this is only place where he'll ever have use it?
 
