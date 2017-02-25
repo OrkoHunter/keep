@@ -25,7 +25,7 @@ def check_update(forced=False):
         dates = json.loads(open(update_check_file, 'r').read())
     else:
         dates = []
-    if not today in dates or forced:
+    if today not in dates or forced:
         dates.append(today)
         if os.path.exists(update_check_file):
             with open(update_check_file, 'w') as f:
@@ -75,7 +75,8 @@ def push(ctx):
     json_path = os.path.join(dir_path, 'commands.json')
     credentials['commands'] = open(json_path).read()
     url = api_url + '/push'
-    if click.confirm("This will overwrite the saved commands on the server. Proceed?", default=True):
+    if click.confirm("This will overwrite the saved "
+                     "commands on the server. Proceed?", default=True):
         r = requests.post(url, json=credentials)
         if r.status_code == 200:
             click.echo("Server successfully updated.")
