@@ -20,7 +20,7 @@ api_url = 'https://keep-cli.herokuapp.com'
 
 def check_update(forced=False):
     update_check_file = os.path.join(dir_path, 'update_check.json')
-    today = datetime.date.today().strftime("%D")
+    today = datetime.date.today().strftime("%m/%d/%Y")
     if os.path.exists(update_check_file):
         dates = json.loads(open(update_check_file, 'r').read())
     else:
