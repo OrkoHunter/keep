@@ -95,8 +95,9 @@ def pull(ctx, overwrite):
         my_commands = get_commands()
         commands.update(my_commands)
 
-    if not overwrite or (overwrite and
-        click.confirm("This will overwrite the locally saved commands. Proceed?", default=True)):
+    if not overwrite or (
+        overwrite and click.confirm(
+            "This will overwrite the locally saved commands. Proceed?", default=True)):
             with open(json_path, 'w') as f:
                 f.write(json.dumps(commands))
             click.echo("Local database successfully updated.")
