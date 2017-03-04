@@ -55,8 +55,7 @@ def first_time_use(ctx):
 
 
 def list_commands(ctx):
-    json_path = os.path.join(dir_path, 'commands.json')
-    commands = json.loads(open(json_path, 'r').read())
+    commands = get_commands()
     table = []
     for cmd, desc in commands.items():
         table.append(['$ ' + cmd, desc])
@@ -82,18 +81,25 @@ def push(ctx):
             click.echo("Server successfully updated.")
 
 
-def pull(ctx):
+def pull(ctx, overwrite):
     credentials_file = os.path.join(dir_path, '.credentials')
     credentials = json.loads(open(credentials_file, 'r').read())
     json_path = os.path.join(dir_path, 'commands.json')
     url = api_url + '/pull'
-    commands = {}
-    if click.confirm("This will overwrite the locally saved commands. Proceed?", default=True):
-        r = requests.post(url, json=credentials)
-        if r.status_code == 200:
-            commands = r.json()['commands']
+
+    r = requests.post(url, json=credentials)
+    if r.status_code == 200:
+        commands = json.loads(r.json()['commands'])
+
+    if not overwrite:
+        my_commands = get_commands()
+        commands.update(my_commands)
+
+    if not overwrite or (
+        overwrite and click.confirm(
+            "This will overwrite the locally saved commands. Proceed?", default=True)):
             with open(json_path, 'w') as f:
-                f.write(str(commands))
+                f.write(json.dumps(commands))
             click.echo("Local database successfully updated.")
 
 
@@ -163,3 +169,9 @@ def save_command(cmd, desc):
     commands[cmd] = desc
     with open(json_path, 'w') as f:
         f.write(json.dumps(commands))
+
+
+def get_commands():
+    json_path = os.path.join(dir_path, 'commands.json')
+    commands = json.loads(open(json_path, 'r').read())
+    return commands
