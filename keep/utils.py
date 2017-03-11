@@ -2,6 +2,7 @@
 import datetime
 import json
 import os
+import re
 import random
 import string
 import sys
@@ -173,5 +174,27 @@ def save_command(cmd, desc):
 
 def get_commands():
     json_path = os.path.join(dir_path, 'commands.json')
+    if not os.path.exists(json_path):
+        return None
     commands = json.loads(open(json_path, 'r').read())
     return commands
+
+
+def grep_commands(pattern):
+    commands = get_commands()
+    result = None
+    if commands:
+        result = []
+        for cmd, desc in commands.items():
+            if re.search(pattern, cmd + " :: " + desc):
+                result.append((cmd, desc))
+                continue
+            # Show if all the parts of the pattern are in one command/desc
+            keywords_len = len(pattern.split())
+            i_keyword = 0
+            for keyword in pattern.split():
+                if keyword.lower() in cmd.lower() or keyword.lower() in desc.lower():
+                    i_keyword += 1
+            if i_keyword == keywords_len:
+                result.append((cmd, desc))
+    return result
