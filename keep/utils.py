@@ -2,6 +2,7 @@
 import datetime
 import json
 import os
+import re
 import random
 import string
 import sys
@@ -55,7 +56,7 @@ def first_time_use(ctx):
 
 
 def list_commands(ctx):
-    commands = get_commands()
+    commands = read_commands()
     table = []
     for cmd, desc in commands.items():
         table.append(['$ ' + cmd, desc])
@@ -92,7 +93,7 @@ def pull(ctx, overwrite):
         commands = json.loads(r.json()['commands'])
 
     if not overwrite:
-        my_commands = get_commands()
+        my_commands = read_commands()
         commands.update(my_commands)
 
     if not overwrite or (
@@ -171,7 +172,35 @@ def save_command(cmd, desc):
         f.write(json.dumps(commands))
 
 
-def get_commands():
+def read_commands():
     json_path = os.path.join(dir_path, 'commands.json')
+    if not os.path.exists(json_path):
+        return None
     commands = json.loads(open(json_path, 'r').read())
     return commands
+
+
+def write_commands(commands):
+    json_path = os.path.join(dir_path, 'commands.json')
+    with open(json_path, 'w') as f:
+        f.write(json.dumps(commands))
+
+
+def grep_commands(pattern):
+    commands = read_commands()
+    result = None
+    if commands:
+        result = []
+        for cmd, desc in commands.items():
+            if re.search(pattern, cmd + " :: " + desc):
+                result.append((cmd, desc))
+                continue
+            # Show if all the parts of the pattern are in one command/desc
+            keywords_len = len(pattern.split())
+            i_keyword = 0
+            for keyword in pattern.split():
+                if keyword.lower() in cmd.lower() or keyword.lower() in desc.lower():
+                    i_keyword += 1
+            if i_keyword == keywords_len:
+                result.append((cmd, desc))
+    return result

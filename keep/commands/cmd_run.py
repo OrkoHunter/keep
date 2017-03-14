@@ -1,6 +1,4 @@
-import json
 import os
-import re
 import click
 from keep import cli, utils
 
@@ -10,27 +8,28 @@ from keep import cli, utils
 @cli.pass_context
 def cli(ctx, pattern):
     """Executes a saved command."""
-    json_path = os.path.join(os.path.expanduser('~'), '.keep', 'commands.json')
-    if not os.path.exists(json_path):
-        click.echo('No commands to run. Add one by `keep new`.')
-    else:
-        FOUND = False
-        for cmd, desc in json.loads(open(json_path, 'r').read()).items():
-            if re.search(pattern, cmd + " :: " + desc):
-                FOUND = True
-                if click.confirm("Execute\n\n\t{}\n\n\n?".format(cmd), default=True):
-                    os.system(cmd)
+    matches = utils.grep_commands(pattern)
+    if matches:
+        click.echo("\n\n")
+        for idx, match in enumerate(matches):
+            cmd, desc = match
+            click.secho(" " + str(idx + 1) + "\t", nl=False, fg='yellow')
+            click.secho("$ {} :: {}".format(cmd, desc), fg='green')
+        click.echo("\n\n")
+
+        val = 1
+        while True and len(matches) > 1:
+            val = click.prompt("Choose command to execute [1-{}] (0 to cancel)"
+                               .format(len(matches)), type=int)
+            if val in range(len(matches) + 1):
                 break
-            # Execute if all the parts of the pattern are in one command/desc
-            keywords_len = len(pattern.split())
-            i_keyword = 0
-            for keyword in pattern.split():
-                if keyword.lower() in cmd.lower() or keyword.lower() in desc.lower():
-                    FOUND = True
-                    i_keyword += 1
-            if i_keyword == keywords_len:
-                if click.confirm("Execute\n\n\t{}\n\n\n?".format(cmd), default=True):
-                    os.system(cmd)
-                    break
-        if not FOUND:
-            click.echo('No saved commands matches the pattern "{}"'.format(pattern))
+            click.echo("Number is not in range")
+        if val > 0:
+            cmd, desc = matches[val - 1]
+            command = "$ {} :: {}".format(cmd, desc)
+            if click.confirm("Execute\n\t{}\n\n?".format(command), default=True):
+                os.system(cmd)
+    elif matches == []:
+        click.echo('No saved commands matches the pattern {}'.format(pattern))
+    else:
+        click.echo("No commands to run, Add one by 'keep new'. ")
