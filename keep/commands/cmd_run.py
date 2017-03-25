@@ -3,11 +3,13 @@ import click
 from keep import cli, utils
 
 
-@click.command('run', short_help='Executes a saved command.')
+@click.command('run', short_help='Executes a saved command.',
+               context_settings=dict(ignore_unknown_options=True))
 @click.argument('pattern')
+@click.argument('arguments', nargs=-1, type=click.UNPROCESSED)
 @click.option('--safe', is_flag=True, help='Ignore missing arguments')
 @cli.pass_context
-def cli(ctx, pattern, safe):
+def cli(ctx, pattern, arguments, safe):
     """Executes a saved command."""
 
     matches = utils.grep_commands(pattern)
@@ -31,9 +33,14 @@ def cli(ctx, pattern, safe):
             pcmd = utils.create_pcmd(cmd)
             params = utils.get_params_in_pcmd(pcmd)
 
+            arguments = list(arguments)
             kargs = {}
             for p in params:
-                if not safe:
+                if arguments:
+                    val = arguments.pop(0)
+                    click.echo("{}: {}".format(p, val))
+                    kargs[p] = val
+                elif not safe:
                     val = click.prompt("Enter value for '{}'".format(p))
                     kargs[p] = val
             click.echo("\n")
