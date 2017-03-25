@@ -204,3 +204,24 @@ def grep_commands(pattern):
             if i_keyword == keywords_len:
                 result.append((cmd, desc))
     return result
+
+
+def create_pcmd(command):
+    return string.Template(command)
+
+
+def get_params_in_pcmd(pcmd):
+    patt = pcmd.pattern
+    res = []
+    for match in re.findall(patt, pcmd.template):
+        param = match[1] or match[2]
+        if param and param not in res:
+            res.append(param)
+    return res
+
+
+def substitute_pcmd(pcmd, kargs, safe=False):
+    if safe:
+        return pcmd.safe_substitute(**kargs)
+    else:
+        return pcmd.substitute(**kargs)
