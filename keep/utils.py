@@ -105,6 +105,13 @@ def pull(ctx, overwrite):
 
 
 def register():
+
+    if not os.path.exists(dir_path):
+        click.secho("\n[CRITICAL] {0} does not exits.\nPlease run 'keep init',"
+                    " and try registering again.\n".format(dir_path),
+                    fg="red", err=True)
+        sys.exit(1)
+
     # User may not choose to register and work locally.
     # Registration is required to push the commands to server
     if click.confirm('Proceed to register?', abort=True, default=True):
