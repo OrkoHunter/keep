@@ -152,21 +152,13 @@ def register():
     sys.exit(0)
 
 
-def remove_command(ctx, cmd):
-    json_path = os.path.join(dir_path, 'commands.json')
-    commands = {}
-    if os.path.exists(json_path):
-        commands = json.loads(open(json_path, 'r').read())
-    else:
-        click.echo('No commands to remove. Run `keep new` to add one.')
-
+def remove_command(cmd):
+    commands = read_commands()
     if cmd in commands:
         del commands[cmd]
-        click.echo('Command successfully removed!')
-        with open(json_path, 'w') as f:
-            f.write(json.dumps(commands))
     else:
         click.echo('Command - {} - does not exist.'.format(cmd))
+    write_commands(commands)
 
 
 def save_command(cmd, desc):
@@ -211,6 +203,25 @@ def grep_commands(pattern):
             if i_keyword == keywords_len:
                 result.append((cmd, desc))
     return result
+
+
+def select_command(commands):
+    click.echo("\n\n")
+    for idx, command in enumerate(commands):
+        cmd, desc = command
+        click.secho(" " + str(idx + 1) + "\t", nl=False, fg='yellow')
+        click.secho("$ {} :: {}".format(cmd, desc), fg='green')
+    click.echo("\n\n")
+
+    selection = 1
+    while True and len(commands) > 1:
+        selection = click.prompt(
+            "Choose command to execute [1-{}] (0 to cancel)"
+            .format(len(commands)), type=int)
+        if selection in range(len(commands) + 1):
+            break
+        click.echo("Number is not in range")
+    return selection - 1
 
 
 def create_pcmd(command):
