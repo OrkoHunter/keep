@@ -152,19 +152,11 @@ def register():
     sys.exit(0)
 
 
-def remove_command(ctx, cmd):
-    json_path = os.path.join(dir_path, 'commands.json')
-    commands = {}
-    if os.path.exists(json_path):
-        commands = json.loads(open(json_path, 'r').read())
-    else:
-        click.echo('No commands to remove. Run `keep new` to add one.')
-
+def remove_command(cmd):
+    commands = read_commands()
     if cmd in commands:
         del commands[cmd]
-        click.echo('Command successfully removed!')
-        with open(json_path, 'w') as f:
-            f.write(json.dumps(commands))
+        write_commands(commands)
     else:
         click.echo('Command - {} - does not exist.'.format(cmd))
 
@@ -211,6 +203,61 @@ def grep_commands(pattern):
             if i_keyword == keywords_len:
                 result.append((cmd, desc))
     return result
+
+
+def select_command(commands):
+    click.echo("\n\n")
+    for idx, command in enumerate(commands):
+        cmd, desc = command
+        click.secho(" " + str(idx + 1) + "\t", nl=False, fg='yellow')
+        click.secho("$ {} :: {}".format(cmd, desc), fg='green')
+    click.echo("\n\n")
+
+    selection = 1
+    while True and len(commands) > 1:
+        selection = click.prompt(
+            "Select a command [1-{}] (0 to cancel)"
+            .format(len(commands)), type=int)
+        if selection in range(len(commands) + 1):
+            break
+        click.echo("Number is not in range")
+    return selection - 1
+
+
+def edit_commands(commands, editor=None, edit_header=""):
+    edit_msg = [edit_header]
+    for cmd, desc in commands.items():
+        cmd = json.dumps(cmd)
+        desc = json.dumps(desc)
+        edit_msg.append("{} :: {}".format(cmd, desc))
+    edited = click.edit('\n'.join(edit_msg), editor=editor)
+
+    command_regex = re.compile(r'(\".*\")\s*::\s*(\".*\")')
+    new_commands = {}
+    if edited:
+        for line in edited.split('\n'):
+            if (line.startswith('#') or line == ""):
+                continue
+            re_match = command_regex.search(line)
+            if re_match and len(re_match.groups()) == 2:
+                cmd, desc = re_match.groups()
+                try:
+                    cmd = json.loads(cmd)
+                    desc = json.loads(desc)
+                except ValueError:
+                    click.echo("Error parsing json from edit file.")
+                    return None
+                new_commands[cmd] = desc
+            else:
+                click.echo("Could not read line '{}'".format(line))
+    return new_commands
+
+
+def format_commands(commands):
+    res = []
+    for cmd, desc in commands.items():
+        res.append("$ {} :: {}".format(cmd, desc))
+    return res
 
 
 def create_pcmd(command):

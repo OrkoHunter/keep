@@ -14,22 +14,9 @@ def cli(ctx, pattern, arguments, safe):
 
     matches = utils.grep_commands(pattern)
     if matches:
-        click.echo("\n\n")
-        for idx, match in enumerate(matches):
-            cmd, desc = match
-            click.secho(" " + str(idx + 1) + "\t", nl=False, fg='yellow')
-            click.secho("$ {} :: {}".format(cmd, desc), fg='green')
-        click.echo("\n\n")
-
-        selection = 1
-        while True and len(matches) > 1:
-            selection = click.prompt("Choose command to execute [1-{}] (0 to cancel)"
-                                     .format(len(matches)), type=int)
-            if selection in range(len(matches) + 1):
-                break
-            click.echo("Number is not in range")
-        if selection > 0:
-            cmd, desc = matches[selection - 1]
+        selected = utils.select_command(matches)
+        if selected >= 0:
+            cmd, desc = matches[selected]
             pcmd = utils.create_pcmd(cmd)
             params = utils.get_params_in_pcmd(pcmd)
 
