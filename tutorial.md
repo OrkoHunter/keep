@@ -18,6 +18,9 @@
 # Commands
 
 <dl>
+  <dt><a href="https://github.com/OrkoHunter/keep/blob/master/keep/commands/cmd_update.py">edit</a>.</dt>
+  <dd>Edit the saved commands and their descriptions.</dd>
+
   <dt><a href="https://github.com/OrkoHunter/keep/blob/master/keep/commands/cmd_grep.py">grep</a> "PATTERN"</dt>
   <dd>This is used to search for saved commands.<br><br>Argument passed to <code>keep grep</code> is interpreted in two ways. First, it is interpreted as a regular expression and if it matches any command or description, then the search is displayed. If this fails, the argument is then splitted and the individule words of the argument are searched in the commands and the descriptions. If all the splits of the argument are found in a command or a discription, the result is displayed.</dd>
 
