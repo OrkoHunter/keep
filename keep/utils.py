@@ -15,8 +15,6 @@ from keep import about
 
 # Directory for Keep files
 dir_path = os.path.join(os.path.expanduser('~'), '.keep')
-# URL for the API
-api_url = 'https://keep-cli.herokuapp.com'
 
 
 def check_update(forced=False):
@@ -51,7 +49,6 @@ def first_time_use(ctx):
 
     os.mkdir(dir_path)
 
-    register()
     sys.exit(0)
 
 
@@ -67,89 +64,6 @@ def log(ctx, message):
     """Prints log when verbose set to True."""
     if ctx.verbose:
         ctx.log(message)
-
-
-def push(ctx):
-    credentials_file = os.path.join(dir_path, '.credentials')
-    credentials = json.loads(open(credentials_file, 'r').read())
-    json_path = os.path.join(dir_path, 'commands.json')
-    credentials['commands'] = open(json_path).read()
-    url = api_url + '/push'
-    if click.confirm("This will overwrite the saved "
-                     "commands on the server. Proceed?", default=True):
-        r = requests.post(url, json=credentials)
-        if r.status_code == 200:
-            click.echo("Server successfully updated.")
-
-
-def pull(ctx, overwrite):
-    credentials_file = os.path.join(dir_path, '.credentials')
-    credentials = json.loads(open(credentials_file, 'r').read())
-    json_path = os.path.join(dir_path, 'commands.json')
-    url = api_url + '/pull'
-
-    r = requests.post(url, json=credentials)
-    if r.status_code == 200:
-        commands = json.loads(r.json()['commands'])
-
-    if not overwrite:
-        my_commands = read_commands()
-        commands.update(my_commands)
-
-    if not overwrite or (
-        overwrite and click.confirm(
-            "This will overwrite the locally saved commands. Proceed?", default=True)):
-            with open(json_path, 'w') as f:
-                f.write(json.dumps(commands))
-            click.echo("Local database successfully updated.")
-
-
-def register():
-
-    if not os.path.exists(dir_path):
-        click.secho("\n[CRITICAL] {0} does not exits.\nPlease run 'keep init',"
-                    " and try registering again.\n".format(dir_path),
-                    fg="red", err=True)
-        sys.exit(1)
-
-    # User may not choose to register and work locally.
-    # Registration is required to push the commands to server
-    if click.confirm('Proceed to register?', abort=True, default=True):
-        # Verify for existing user
-        click.echo("Your credentials will be saved in the ~/.keep directory.")
-        email = click.prompt('Email', confirmation_prompt=True)
-        json_res = {'email': email}
-        click.echo('Verifying with existing users...')
-        r = requests.post('https://keep-cli.herokuapp.com/check-user', json=json_res)
-        if r.json()['exists']:
-            click.secho('User already exists !', fg='red')
-            email = click.prompt('Email', confirmation_prompt=True)
-            json_res = {'email': email}
-            r = requests.post('https://keep-cli.herokuapp.com/check-user', json=json_res)
-        # Generate password for the user
-        chars = string.ascii_letters + string.digits
-        password = ''.join(random.choice(chars) for _ in range(255))
-        credentials_file = os.path.join(dir_path, '.credentials')
-        credentials = {
-            'email': email,
-            'password': password
-        }
-        click.secho("Generated password for " + email, fg='cyan')
-        # Register over the server
-        click.echo("Registering new user ...")
-        json_res = {
-            'email': email,
-            'password': password
-        }
-        r = requests.post('https://keep-cli.herokuapp.com/register', json=json_res)
-        if r.status_code == 200:
-            click.secho("User successfully registered !", fg='green')
-            # Save the credentials into a file
-            with open(credentials_file, 'w+') as f:
-                f.write(json.dumps(credentials))
-            click.secho(password, fg='cyan')
-            click.secho("Credentials file saved at ~/.keep/.credentials.json", fg='green')
-    sys.exit(0)
 
 
 def remove_command(cmd):

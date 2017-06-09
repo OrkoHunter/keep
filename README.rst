@@ -30,11 +30,6 @@ Features
 
 - Save a new command with a brief description
 - Search the saved commands using powerful patterns
-- Save the commands on the remote on the server
-- Use ``keep push`` and ``keep pull`` to sync the commands between all your computers.
-
-
-**ProTip : Save the commands you usually forget in ssh sessions and sync it with your local machine.**
 
 Installation
 ------------
@@ -66,9 +61,6 @@ Usage
       init      Initializes the CLI.
       list      Show the saved commands.
       new       Saves a new command.
-      pull      Updates the local database with remote.
-      push      Pushes the local database to remote.
-      register  Register user over server.
       rm        Deletes a saved command.
       run       Executes a saved command.
       update    Check for an update of Keep.
