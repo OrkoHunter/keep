@@ -263,7 +263,7 @@ def format_commands(commands):
 def create_pcmd(command):
     class KeepCommandTemplate(string.Template):
         default_sep = '='
-        idpattern = r'[_a-z][_\a-z0-9{}]*'.format(default_sep)
+        idpattern = r'[_a-z][_a-z0-9{}]*'.format(default_sep)
 
         def __init__(self, template):
             super().__init__(template)
