@@ -262,7 +262,8 @@ def format_commands(commands):
 
 def create_pcmd(command):
     class KeepCommandTemplate(string.Template):
-        idpattern = r'[_a-z][_\-a-z0-9]*'
+        default_sep = '='
+        idpattern = r'[_a-z][_\a-z0-9{}]*'.format(default_sep)
 
         def __init__(self, template):
             super().__init__(template)
@@ -276,8 +277,8 @@ def get_params_in_pcmd(pcmd):
     raw = []
     for match in re.findall(patt, pcmd.template):
         var = match[1] or match[2]
-        svar = var.split('-')
-        p, d = svar[0], '-'.join(svar[1:])
+        svar = var.split(pcmd.default_sep)
+        p, d = svar[0], pcmd.default_sep.join(svar[1:])
         if p and p not in params:
             raw.append(var)
             params.append(p)
