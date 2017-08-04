@@ -7,6 +7,7 @@ def cli(ctx):
     """Saves a new command"""
     cmd = click.prompt('Command')
     desc = click.prompt('Description ')
-    utils.save_command(cmd, desc)
+    alias = click.prompt('Alias (optional)', default='')
+    utils.save_command(cmd, desc, alias)
 
     utils.log(ctx, 'Saved the new command - {} - with the description - {}.'.format(cmd, desc))
