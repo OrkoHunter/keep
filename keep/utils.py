@@ -58,9 +58,10 @@ def first_time_use(ctx):
 def list_commands(ctx):
     commands = read_commands()
     table = []
-    for cmd, desc in commands.items():
-        table.append(['$ ' + cmd, desc])
-    print(tabulate.tabulate(table, headers=['Command', 'Description']))
+    for cmd, fields in commands.items():
+        desc, alias = fields['desc'], fields['alias']
+        table.append(['$ ' + cmd, alias, desc])
+    print(tabulate.tabulate(table, headers=['Command', 'Alias', 'Description']))
 
 
 def log(ctx, message):
@@ -161,12 +162,13 @@ def remove_command(cmd):
         click.echo('Command - {} - does not exist.'.format(cmd))
 
 
-def save_command(cmd, desc):
+def save_command(cmd, desc, alias=""):
     json_path = os.path.join(dir_path, 'commands.json')
     commands = {}
     if os.path.exists(json_path):
         commands = json.loads(open(json_path, 'r').read())
-    commands[cmd] = desc
+    fields = {'desc': desc, 'alias': alias}
+    commands[cmd] = fields
     with open(json_path, 'w') as f:
         f.write(json.dumps(commands))
 
@@ -190,7 +192,13 @@ def grep_commands(pattern):
     result = None
     if commands:
         result = []
-        for cmd, desc in commands.items():
+        for cmd, fields in commands.items():
+            desc = fields['desc']
+            alias = fields['alias']
+            if alias == pattern and alias.strip() != "":
+                result.clear()
+                result.append((cmd, desc))
+                break
             if re.search(pattern, cmd + " :: " + desc):
                 result.append((cmd, desc))
                 continue
@@ -226,28 +234,31 @@ def select_command(commands):
 
 def edit_commands(commands, editor=None, edit_header=""):
     edit_msg = [edit_header]
-    for cmd, desc in commands.items():
+    for cmd, fields in commands.items():
+        desc, alias = fields['desc'], fields['alias']
         cmd = json.dumps(cmd)
         desc = json.dumps(desc)
-        edit_msg.append("{} :: {}".format(cmd, desc))
+        alias = json.dumps(alias)
+        edit_msg.append("{} :: {} :: {}".format(cmd, alias, desc))
     edited = click.edit('\n'.join(edit_msg), editor=editor)
 
-    command_regex = re.compile(r'(\".*\")\s*::\s*(\".*\")')
+    command_regex = re.compile(r'(\".*\")\s*::\s*(\".*\")\s*::\s*(\".*\")')
     new_commands = {}
     if edited:
         for line in edited.split('\n'):
             if (line.startswith('#') or line == ""):
                 continue
             re_match = command_regex.search(line)
-            if re_match and len(re_match.groups()) == 2:
-                cmd, desc = re_match.groups()
+            if re_match and len(re_match.groups()) == 3:
+                cmd, alias, desc = re_match.groups()
                 try:
                     cmd = json.loads(cmd)
                     desc = json.loads(desc)
+                    alias = json.loads(alias)
                 except ValueError:
                     click.echo("Error parsing json from edit file.")
                     return None
-                new_commands[cmd] = desc
+                new_commands[cmd] = {'desc': desc, 'alias': alias}
             else:
                 click.echo("Could not read line '{}'".format(line))
     return new_commands
@@ -255,8 +266,9 @@ def edit_commands(commands, editor=None, edit_header=""):
 
 def format_commands(commands):
     res = []
-    for cmd, desc in commands.items():
-        res.append("$ {} :: {}".format(cmd, desc))
+    for cmd, fields in commands.items():
+        desc, alias = fields['desc'], fields['alias']
+        res.append("$ {} :: {} :: {}".format(cmd, alias, desc))
     return res
 
 
