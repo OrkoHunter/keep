@@ -9,7 +9,8 @@ import sys
 import time
 import click
 import requests
-import tabulate
+from terminaltables import SingleTable
+from textwrap import wrap
 
 from keep import about
 
@@ -56,12 +57,23 @@ def first_time_use(ctx):
 
 
 def list_commands(ctx):
-    commands = read_commands()
-    table = []
+    table_data = [['Command', 'Description', 'Alias']]
+    commands   = read_commands()
+
     for cmd, fields in commands.items():
-        desc, alias = fields['desc'], fields['alias']
-        table.append(['$ ' + cmd, alias, desc])
-    print(tabulate.tabulate(table, headers=['Command', 'Alias', 'Description']))
+        table_data.append(['$ ' + cmd, fields['desc'], fields['alias']])
+
+    table      = SingleTable(table_data)
+    max_widths = [table.column_max_width(0), table.column_max_width(1)]
+
+    for i in range(len(table_data)-1):
+        for j in [0,1]:
+            data = table.table_data[i+1][j]
+            if len(data) > max_widths[j]:
+                table.table_data[i+1][j] = '\n'.join(wrap(data, max_widths[j]))
+
+    table.inner_row_border = True
+    print(table.table)
 
 
 def log(ctx, message):
