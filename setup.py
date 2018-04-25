@@ -28,7 +28,7 @@ if __name__ == "__main__":
         install_requires=[
             'click',
             'requests',
-            'tabulate'
+            'terminaltables'
         ],
         entry_points = {
             'console_scripts': [

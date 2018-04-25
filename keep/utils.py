@@ -60,6 +60,8 @@ def list_commands(ctx):
     table_data = [['Command', 'Description', 'Alias']]
     commands = read_commands()
 
+    print(type(commands))
+
     for cmd, fields in commands.items():
         table_data.append(['$ ' + cmd, fields['desc'], fields['alias']])
 
