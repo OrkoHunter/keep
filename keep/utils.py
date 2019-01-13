@@ -81,39 +81,39 @@ def log(ctx, message):
         ctx.log(message)
 
 
-def push(ctx):
-    credentials_file = os.path.join(dir_path, '.credentials')
-    credentials = json.loads(open(credentials_file, 'r').read())
-    json_path = os.path.join(dir_path, 'commands.json')
-    credentials['commands'] = open(json_path).read()
-    url = api_url + '/push'
-    if click.confirm("This will overwrite the saved "
-                     "commands on the server. Proceed?", default=True):
-        r = requests.post(url, json=credentials)
-        if r.status_code == 200:
-            click.echo("Server successfully updated.")
+# def push(ctx):
+#     credentials_file = os.path.join(dir_path, '.credentials')
+#     credentials = json.loads(open(credentials_file, 'r').read())
+#     json_path = os.path.join(dir_path, 'commands.json')
+#     credentials['commands'] = open(json_path).read()
+#     url = api_url + '/push'
+#     if click.confirm("This will overwrite the saved "
+#                      "commands on the server. Proceed?", default=True):
+#         r = requests.post(url, json=credentials)
+#         if r.status_code == 200:
+#             click.echo("Server successfully updated.")
 
 
-def pull(ctx, overwrite):
-    credentials_file = os.path.join(dir_path, '.credentials')
-    credentials = json.loads(open(credentials_file, 'r').read())
-    json_path = os.path.join(dir_path, 'commands.json')
-    url = api_url + '/pull'
+# def pull(ctx, overwrite):
+#     credentials_file = os.path.join(dir_path, '.credentials')
+#     credentials = json.loads(open(credentials_file, 'r').read())
+#     json_path = os.path.join(dir_path, 'commands.json')
+#     url = api_url + '/pull'
 
-    r = requests.post(url, json=credentials)
-    if r.status_code == 200:
-        commands = json.loads(r.json()['commands'])
+#     r = requests.post(url, json=credentials)
+#     if r.status_code == 200:
+#         commands = json.loads(r.json()['commands'])
 
-    if not overwrite:
-        my_commands = read_commands()
-        commands.update(my_commands)
+#     if not overwrite:
+#         my_commands = read_commands()
+#         commands.update(my_commands)
 
-    if not overwrite or (
-        overwrite and click.confirm(
-            "This will overwrite the locally saved commands. Proceed?", default=True)):
-            with open(json_path, 'w') as f:
-                f.write(json.dumps(commands))
-            click.echo("Local database successfully updated.")
+#     if not overwrite or (
+#         overwrite and click.confirm(
+#             "This will overwrite the locally saved commands. Proceed?", default=True)):
+#             with open(json_path, 'w') as f:
+#                 f.write(json.dumps(commands))
+#             click.echo("Local database successfully updated.")
 
 
 # def register():

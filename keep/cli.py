@@ -66,6 +66,6 @@ def cli(ctx, verbose):
     """
     Keep and view shell commands in terminal only.
 
-    Read more at https://orkohunter.net/keep
+    Read more at https://github.com/orkohunter/keep
     """
     ctx.verbose = verbose
