@@ -9,7 +9,7 @@ import sys
 import time
 import click
 import requests
-from terminaltables import SingleTable
+from terminaltables import AsciiTable
 from textwrap import wrap
 
 from keep import about
@@ -62,7 +62,7 @@ def list_commands(ctx):
     for cmd, fields in commands.items():
         table_data.append(['$ ' + cmd, fields['desc'], fields['alias']])
 
-    table = SingleTable(table_data)
+    table = AsciiTable(table_data)
     max_widths = [table.column_max_width(0), table.column_max_width(1)]
 
     for i in range(len(table_data) - 1):
