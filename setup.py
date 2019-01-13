@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#! -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import codecs
 import os
@@ -15,25 +15,24 @@ with codecs.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 if __name__ == "__main__":
     setup(
-        name = about.__name__,
-        packages = ['keep', 'keep.commands'],
-        version = about.__version__,
-        description = 'Personal shell command keeper',
-        long_description = long_description,
-        author = 'Himanshu Mishra',
-        author_email = 'himanshu.mishra.kgp@gmail.com',
-        url = "https://github.com/orkohunter/keep",
-        download_url = "https://github.com/orkohunter/keep/archive/master.zip",
+        name=about.__name__,
+        packages=['keep', 'keep.commands'],
+        version=about.__version__,
+        description='Personal shell command keeper',
+        long_description=long_description,
+        author='Himanshu Mishra',
+        author_email='himanshu.mishra.kgp@gmail.com',
+        url="https://github.com/orkohunter/keep",
+        download_url="https://github.com/orkohunter/keep/archive/master.zip",
         include_package_data=True,
         install_requires=[
             'click',
             'requests',
             'terminaltables'
         ],
-        entry_points = {
+        entry_points={
             'console_scripts': [
-                'keep = keep.cli:cli'
+                'keep=keep.cli:cli'
             ],
         },
     )
-
