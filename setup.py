@@ -21,7 +21,7 @@ if __name__ == "__main__":
         description = 'Personal shell command keeper',
         long_description = long_description,
         author = 'Himanshu Mishra',
-        author_email = 'himanshumishra@iitkgp.ac.in',
+        author_email = 'himanshu.mishra.kgp@gmail.com',
         url = "https://github.com/orkohunter/keep",
         download_url = "https://github.com/orkohunter/keep/archive/master.zip",
         include_package_data=True,
