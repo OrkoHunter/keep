@@ -1,3 +1,5 @@
+Note: Push, Pull and Register are disabled. Sync will be re-enabled using github gist.
+
 # Tutorial
 
  - Initialize Keep with `keep init`. This creates a `.keep` directory in your home folder.

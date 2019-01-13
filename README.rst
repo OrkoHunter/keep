@@ -30,8 +30,8 @@ Features
 
 - Save a new command with a brief description
 - Search the saved commands using powerful patterns
-- Save the commands on the remote on the server
-- Use ``keep push`` and ``keep pull`` to sync the commands between all your computers.
+- ~Save the commands on the remote on the server~
+- ~Use ``keep push`` and ``keep pull`` to sync the commands between all your computers.~
 
 
 **ProTip : Save the commands you usually forget in ssh sessions and sync it with your local machine.**
@@ -41,9 +41,11 @@ Installation
 
 ::
 
-    $ pip install keep
+    $ pip3 install keep
 
-You can install pip using apt-get as ``sudo apt install python-pip``.
+Use Python 3.6 or later.
+
+You can install pip3 using apt-get as ``sudo apt install python3-pip``.
 
 
 Usage
@@ -55,7 +57,7 @@ Usage
 
       Keep and view shell commands in terminal only.
 
-      Read more at https://orkohunter.net/keep
+      Read more at https://github.com/orkohunter/keep
 
     Options:
       -v, --verbose  Enables verbose mode.
@@ -66,9 +68,6 @@ Usage
       init      Initializes the CLI.
       list      Show the saved commands.
       new       Saves a new command.
-      pull      Updates the local database with remote.
-      push      Pushes the local database to remote.
-      register  Register user over server.
       rm        Deletes a saved command.
       run       Executes a saved command.
       update    Check for an update of Keep.
