@@ -1,2 +1,2 @@
 __name__ = 'keep'
-__version__ = '2.5.2'
+__version__ = '2.6'
