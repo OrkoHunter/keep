@@ -35,12 +35,11 @@ def check_update(forced=False):
         r = requests.get("https://pypi.python.org/pypi/keep/json").json()
         version = r['info']['version']
         curr_version = about.__version__
-        if version != curr_version:
+        if version > curr_version:
             click.secho("Keep seems to be outdated. Current version = "
                         "{}, Latest version = {}".format(curr_version, version) +
                         "\n\nPlease update with ", bold=True, fg='red')
-            click.secho("\tpip --no-cache-dir install -U keep==" + str(version), fg='green')
-            sys.exit(0)
+            click.secho("\tpip3 --no-cache-dir install -U keep==" + str(version), fg='green')
 
 
 def first_time_use(ctx):
