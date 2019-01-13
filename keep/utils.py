@@ -65,19 +65,20 @@ def first_time_use(ctx):
 
 def list_commands(ctx):
     table_data = [['Command', 'Description', 'Alias']]
-    commands = read_commands()
+    no_of_columns = len(table_data[0])
 
+    commands = read_commands()
     for cmd, fields in commands.items():
         table_data.append(['$ ' + cmd, fields['desc'], fields['alias']])
 
     table = AsciiTable(table_data)
-    max_widths = [table.column_max_width(0), table.column_max_width(1)]
+    max_width = table.table_width//3
 
     for i in range(len(table_data) - 1):
-        for j in [0, 1]:
+        for j in range(no_of_columns):
             data = table.table_data[i + 1][j]
-            if len(data) > max_widths[j]:
-                table.table_data[i + 1][j] = '\n'.join(wrap(data, max_widths[j]))
+            if len(data) > max_width:
+                table.table_data[i + 1][j] = '\n'.join(wrap(data, max_width))
 
     table.inner_row_border = True
     print(table.table)
