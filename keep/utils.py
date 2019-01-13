@@ -20,26 +20,34 @@ dir_path = os.path.join(os.path.expanduser('~'), '.keep')
 api_url = 'https://keep-cli.herokuapp.com'
 
 
-def check_update(forced=False):
-    update_check_file = os.path.join(dir_path, 'update_check.json')
-    today = datetime.date.today().strftime("%m/%d/%Y")
-    if os.path.exists(update_check_file):
-        dates = json.loads(open(update_check_file, 'r').read())
-    else:
-        dates = []
-    if today not in dates or forced:
-        dates.append(today)
+def check_update(ctx, forced=False):
+    """
+    Check for update on pypi. Limit to 1 check per day if not forced
+    """
+    try:
+        if ctx.update_checked and not forced:
+            return
+    except AttributeError:
+        update_check_file = os.path.join(dir_path, 'update_check.txt')
+        today = datetime.date.today().strftime("%m/%d/%Y")
         if os.path.exists(update_check_file):
+            date = open(update_check_file, 'r').read()
+        else:
+            date = []
+        if forced or today != date:
+            ctx.update_checked = True
+            date = today
             with open(update_check_file, 'w') as f:
-                f.write(json.dumps(dates))
-        r = requests.get("https://pypi.python.org/pypi/keep/json").json()
-        version = r['info']['version']
-        curr_version = about.__version__
-        if version > curr_version:
-            click.secho("Keep seems to be outdated. Current version = "
-                        "{}, Latest version = {}".format(curr_version, version) +
-                        "\n\nPlease update with ", bold=True, fg='red')
-            click.secho("\tpip3 --no-cache-dir install -U keep==" + str(version), fg='green')
+                f.write(date)
+            r = requests.get("https://pypi.org/pypi/keep/json").json()
+            version = r['info']['version']
+            curr_version = about.__version__
+            if version > curr_version:
+                click.secho("Keep seems to be outdated. Current version = "
+                            "{}, Latest version = {}".format(curr_version, version) +
+                            "\n\nPlease update with ", bold=True, fg='red')
+                click.secho("\tpip3 --no-cache-dir install -U keep==" + str(version), fg='green')
+                click.secho("\n\n")
 
 
 def first_time_use(ctx):
