@@ -28,7 +28,8 @@ if __name__ == "__main__":
         install_requires=[
             'click',
             'requests',
-            'terminaltables'
+            'terminaltables',
+            'PyGithub'
         ],
         entry_points={
             'console_scripts': [

@@ -323,3 +323,19 @@ def substitute_pcmd(pcmd, kargs, safe=False):
         return pcmd.safe_substitute(**kargs)
     else:
         return pcmd.substitute(**kargs)
+
+
+def get_github_token():
+    token_file_path = os.path.join(dir_path, '.credentials')
+    token = None
+
+    if os.path.exists(token_file_path):
+        with open(token_file_path) as token_file:
+            token = json.load(token_file)
+
+    if not token or 'token' not in token or not token['token']:
+        click.echo('Github access token not found :(', fg='red')
+        click.echo('Use the token command to store the token first', fg='red')
+        return None
+
+    return token
