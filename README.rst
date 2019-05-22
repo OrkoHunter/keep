@@ -30,9 +30,8 @@ Features
 
 - Save a new command with a brief description
 - Search the saved commands using powerful patterns
-- ~Save the commands on the remote on the server~
-- ~Use ``keep push`` and ``keep pull`` to sync the commands between all your computers.~
-
+- Save the commands as a secret GitHub gist
+- Use ``keep push`` and ``keep pull`` to sync the commands between GitHub gist and other computers.
 
 **ProTip : Save the commands you usually forget in ssh sessions and sync it with your local machine.**
 
@@ -64,14 +63,17 @@ Usage
       --help         Show this message and exit.
 
     Commands:
-      grep      Searches for a saved command.
-      init      Initializes the CLI.
-      list      Show the saved commands.
-      new       Saves a new command.
-      rm        Deletes a saved command.
-      run       Executes a saved command.
-      update    Check for an update of Keep.
-
+      edit          Edit a saved command.
+      github_token  Register a GitHub Token to use GitHub Gists as a backup.
+      grep          Searches for a saved command.
+      init          Initializes the CLI.
+      list          Shows the saved commands.
+      new           Saves a new command.
+      pull          Pull commands from saved GitHub gist.
+      push          Push commands to a secret GitHub gist.
+      rm            Deletes a saved command.
+      run           Executes a saved command.
+      update        Check for an update of Keep.
 
 `See the detailed usage and tutorial. <https://github.com/OrkoHunter/keep/blob/master/tutorial.md>`_
 

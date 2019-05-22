@@ -20,9 +20,9 @@ def cli(ctx):
                          abort=True):
             os.remove(dir_path)
 
-    token = click.prompt('Create a GitHub token with permission to Gists and paste here : ')
+    token = click.prompt('Create a GitHub token with permission to Gists and paste here ')
     gist_id = existing_token.get('gist') if existing_token else None
-    prompt_str = 'If you already have a GitHub gist created by keep, paste the Gist ID here, or else press Enter : '
+    prompt_str = 'If you already have a GitHub gist created by keep, paste the Gist ID here, or else press Enter '
     new_gist_id = click.prompt(prompt_str, default='', show_default=False)
 
     if new_gist_id:
@@ -37,3 +37,6 @@ def cli(ctx):
 
     with open(dir_path, 'w') as f:
         json.dump({'token': token, 'gist': gist_id}, f)
+
+    click.echo("Done! Gist URL - https://gist.github.com/" + gist_id)
+    click.echo("You can now use `keep push` or `keep pull`")
