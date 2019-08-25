@@ -334,8 +334,8 @@ def get_github_token():
             token = json.load(token_file)
 
     if not token or 'token' not in token or not token['token']:
-        click.echo('Github access token not found :(', fg='red')
-        click.echo('Use the token command to store the token first', fg='red')
+        click.secho('Github access token not found :(', fg='red')
+        click.secho('Use the "keep github_token" command to store the token first', fg='red')
         return None
 
     return token
