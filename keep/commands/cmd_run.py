@@ -5,7 +5,7 @@ from keep import cli, utils
 
 @click.command('run', short_help='Executes a saved command.',
                context_settings=dict(ignore_unknown_options=True))
-@click.argument('pattern',required=False)
+@click.argument('pattern', required=False)
 @click.argument('arguments', nargs=-1, type=click.UNPROCESSED)
 @click.option('--safe', is_flag=True, help='Ignore missing arguments')
 @cli.pass_context
