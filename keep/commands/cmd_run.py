@@ -5,13 +5,15 @@ from keep import cli, utils
 
 @click.command('run', short_help='Executes a saved command.',
                context_settings=dict(ignore_unknown_options=True))
-@click.argument('pattern')
+@click.argument('pattern',required=False)
 @click.argument('arguments', nargs=-1, type=click.UNPROCESSED)
 @click.option('--safe', is_flag=True, help='Ignore missing arguments')
 @cli.pass_context
 def cli(ctx, pattern, arguments, safe):
     """Executes a saved command."""
 
+    if not pattern:
+        pattern = "(.*?s)"
     matches = utils.grep_commands(pattern)
     if matches:
         selected = utils.select_command(matches)
