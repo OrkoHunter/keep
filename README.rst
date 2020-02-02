@@ -77,6 +77,56 @@ Usage
 
 `See the detailed usage and tutorial. <https://github.com/OrkoHunter/keep/blob/master/tutorial.md>`_
 
+Command-line Completion
+-----------------------
+
+To enable command-line completion (TAB completion) follow these steps for the shell of your choice
+
+bash
+~~~~
+
+1. Create a directory in your home directory called `.bash`
+
+ .. code-block:: sh
+
+  $ mkdir -p ~/.bash
+
+2. Copy `completion/keep.bash <https://github.com/OrkoHunter/keep/blob/master/completions/keep.bash>`_ to `~/.bash/keep`
+
+ .. code-block:: sh
+
+  $ curl -SLo "~/.bash/keep" "https://raw.githubusercontent.com/OrkoHunter/keep/master/completions/keep.bash"
+
+3. Add the following lines to `~/.bashrc` file
+
+ .. code-block:: sh
+
+  [ -f "~/.bash/keep.bash" ] && . "~/.bash/keep"
+
+zsh
+~~~~
+
+1. Create a directory in your home called `.zsh`
+
+ .. code-block:: sh
+
+  $ mkdir -p ~/.zsh
+
+2. Copy `completion/keep.zsh <https://github.com/OrkoHunter/keep/blob/master/completions/keep.zsh>`_ to `~/.zsh/_keep`
+
+ .. code-block:: sh
+
+  $ curl -SLo "~/.zsh/_keep" "https://raw.githubusercontent.com/OrkoHunter/keep/master/completions/keep.zsh"
+
+3. Add the following lines inside `~/.zshrc` file
+
+ .. code-block:: sh
+
+  fpath=(~/.zsh $fpath)
+
+  autoload -Uz compinit && compinit
+
+
 ==========
 Contribute
 ==========
