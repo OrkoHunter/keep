@@ -20,7 +20,7 @@ def cli(ctx):
     gist_url = f"https://gist.github.com/{token['gist']}"
     prompt_str = f"[CRITICAL] Replace local commands with GitHub gist\nGist URL : {gist_url} ?"
     if click.confirm(prompt_str, abort=True):
-        os.remove(commands_file_path)
+        pass
 
     """Using `w+` so it create the file if doesn't exist (Issue #64)"""
     with open(commands_file_path, 'w+') as commands_file:
