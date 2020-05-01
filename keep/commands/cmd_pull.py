@@ -22,6 +22,7 @@ def cli(ctx):
     if click.confirm(prompt_str, abort=True):
         os.remove(commands_file_path)
 
-    with open(commands_file_path, 'w') as commands_file:
+    """Using `w+` so it create the file if doesn't exist (Issue #64)"""
+    with open(commands_file_path, 'w+') as commands_file:
         commands_file.write(gist.files['commands.json'].content)
     click.echo("Done!")
