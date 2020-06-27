@@ -28,4 +28,3 @@ def cli(ctx, editor):
             json_path = os.path.join(dir_path, 'commands.json')
             if click.confirm('Delete all commands ?', abort=True):
                 os.remove(json_path)
-                
