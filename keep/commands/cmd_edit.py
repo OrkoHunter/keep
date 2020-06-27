@@ -7,7 +7,7 @@ import os
 @click.option('--editor', help='Editor to use')
 @cli.pass_context
 def cli(ctx, editor):
-    """Edit saved commands."""    
+    """Edit saved commands."""
     commands = utils.read_commands()
     if commands is None:
         click.echo("No commands to edit, Add one by 'keep new'. ")
@@ -24,6 +24,8 @@ def cli(ctx, editor):
             if click.confirm("", default=False):
                 utils.write_commands(new_commands)
         elif new_commands == {}:
-            json_path = os.path.join(os.path.join(os.path.expanduser('~'), '.keep'), 'commands.json')
+            dir_path = os.path.join(os.path.expanduser('~'), '.keep')
+            json_path = os.path.join(dir_path, 'commands.json')
             if click.confirm('Delete all commands ?', abort=True):
                 os.remove(json_path)
+                
