@@ -1,5 +1,7 @@
 |logo|
 
+.. image:: https://img.shields.io/pypi/v/keep   :alt: PyPI
+
 A Meta CLI toolkit
 ==================
     Your personal shell command keeper
