@@ -1,5 +1,6 @@
 import click
 from keep import cli, utils
+import os
 
 
 @click.command('edit', short_help='Edit a saved command.')
@@ -7,9 +8,8 @@ from keep import cli, utils
 @cli.pass_context
 def cli(ctx, editor):
     """Edit saved commands."""
-
     commands = utils.read_commands()
-    if commands is []:
+    if commands is None:
         click.echo("No commands to edit, Add one by 'keep new'. ")
     else:
         edit_header = "# Unchanged file will abort the operation\n"
@@ -23,3 +23,8 @@ def cli(ctx, editor):
                         fg="green")
             if click.confirm("", default=False):
                 utils.write_commands(new_commands)
+        elif new_commands == {}:
+            dir_path = os.path.join(os.path.expanduser('~'), '.keep')
+            json_path = os.path.join(dir_path, 'commands.json')
+            if click.confirm('Delete all commands ?', abort=True):
+                os.remove(json_path)
