@@ -6,8 +6,6 @@
 
 > Your personal shell command keeper
 
-![image](https://raw.githubusercontent.com/OrkoHunter/keep/master/data/keep.gif)
-
 ## Why?
 
 Writwick Wraj loves using the command line.
