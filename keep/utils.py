@@ -51,7 +51,7 @@ def check_update(ctx, forced=False):
 
 
 def first_time_use(ctx):
-    click.secho("Initializing environment in ~/.keep directory", fg='green')
+    click.secho("Detected fresh installation. Initializing environment in ~/.keep directory", fg='green')
     for _ in range(2):
         click.echo('.', nl=False)
         time.sleep(0.5)
