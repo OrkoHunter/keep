@@ -72,6 +72,39 @@ You can install pip3 using apt-get as `sudo apt install python3-pip`.
 [See the detailed usage and
 tutorial.](https://github.com/OrkoHunter/keep/blob/master/tutorial.md)
 
+### Command-line Completion
+
+To enable command-line completion (TAB completion) follow these steps for the shell of your choice
+
+#### bash
+
+1. Create a directory in your home directory called `.bash`
+
+        mkdir -p ~/.bash
+
+2. Copy [completion/keep.bash](https://github.com/OrkoHunter/keep/blob/master/completions/keep.bash) to `~/.bash/keep`
+
+        curl -SLo "~/.bash/keep" "https://raw.githubusercontent.com/OrkoHunter/keep/master/completions/keep.bash"
+
+3. Add the following lines to `~/.bashrc` file
+
+        [ -f "~/.bash/keep.bash" ] && . "~/.bash/keep"
+
+#### zsh
+
+1. Create a directory in your home called `.zsh`
+
+        mkdir -p ~/.zsh
+
+2. Copy [completion/keep.zsh](https://github.com/OrkoHunter/keep/blob/master/completions/keep.zsh) to `~/.zsh/_keep`
+
+        curl -SLo "~/.zsh/_keep" "https://raw.githubusercontent.com/OrkoHunter/keep/master/completions/keep.zsh"
+
+3. Add the following lines inside `~/.zshrc` file
+
+        fpath=(~/.zsh $fpath)
+        autoload -Uz compinit && compinit
+
 ### Contribute
 
 This is a very young project. If you have got any suggestions for new
