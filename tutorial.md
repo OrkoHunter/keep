@@ -85,7 +85,7 @@ Execute
 ? [Y/n]:
 ```
 
-- If any required parameter is missed out, Keep will ask it's input separately.
+- If any required parameter is missed out, Keep will ask its input separately.
 
 ```bash
 $ keep run "grep" /path/to/dir "data[0-9]+"
