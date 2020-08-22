@@ -48,3 +48,55 @@
   <dd>Checks for an update on pypi.</dd>
 
 </dl>
+
+# Pro Tip - Commands with parameters
+
+If a word is prefixed with `$` while saving a command with Keep, it is treated as a variable and Keep asks for an input.
+
+_Examples:_
+
+- Adding parameters through Keep input
+```bash
+$ keep run "tar"
+
+ 1	$ tar zxvf $tarfile -C $dest :: Extract tar content to destination
+
+Enter value for 'tarfile': /path/to/tar
+Enter value for 'dest': /my/folder/
+
+Execute
+	$ tar zxvf /path/to/tar -C /my/folder/ :: Extract tar content to destination
+? [Y/n]: 
+```
+
+- Parameters can also be passed directly into commands.
+
+```bash
+$ keep run "grep" /path/to/dir "data[0-9]+" "> file" 
+
+ 1	$ grep -irnw $dir -e $pattern $out :: Look for a regex pattern inside files
+
+dir: /path/to/dir
+pattern: data[0-9]+
+out: > file
+
+Execute
+	$ grep -irnw /path/to/dir -e file_[0-9]+ > file :: Look for a regex pattern inside files
+? [Y/n]:
+```
+
+- If any required parameter is missed out, Keep will ask it's input separately.
+
+```bash
+$ keep run "grep" /path/to/dir "data[0-9]+"
+
+ 1	$ grep -irnw $dir -e $pattern $out :: Look for a regex pattern inside files
+
+dir: /path/to/dir
+pattern: data[0-9]+
+Enter value for 'out':  
+
+Execute
+	$ grep -irnw /path/to/dir -e data[0-9]+   :: Look for a regex pattern inside files
+? [Y/n]:
+```
