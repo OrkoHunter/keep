@@ -51,7 +51,7 @@
 
 # Pro Tip - Commands with parameters
 
-If a word is prefixed with `$` while saving a command with Keep, it is treated as a variable and Keep asks for an input.
+When saving a new command with `keep new`, if a word is prefixed with `$` while saving a command with Keep, it is treated as a variable and Keep asks for an input.
 
 _Examples:_
 
