@@ -66,13 +66,13 @@ Enter value for 'dest': /my/folder/
 
 Execute
 	$ tar zxvf /path/to/tar -C /my/folder/ :: Extract tar content to destination
-? [Y/n]: 
+? [Y/n]:
 ```
 
 - Parameters can also be passed directly into commands.
 
 ```bash
-$ keep run "grep" /path/to/dir "data[0-9]+" "> file" 
+$ keep run "grep" /path/to/dir "data[0-9]+" "> file"
 
  1	$ grep -irnw $dir -e $pattern $out :: Look for a regex pattern inside files
 
@@ -94,9 +94,20 @@ $ keep run "grep" /path/to/dir "data[0-9]+"
 
 dir: /path/to/dir
 pattern: data[0-9]+
-Enter value for 'out':  
+Enter value for 'out':
 
 Execute
 	$ grep -irnw /path/to/dir -e data[0-9]+   :: Look for a regex pattern inside files
 ? [Y/n]:
+```
+
+- Disable confirm message before run
+```bash
+$ keep run "tar" -n
+
+ 1  $ tar zxvf $tarfile -C $dest :: Extract tar content to destination
+
+Enter value for 'tarfile': /path/to/tar
+Enter value for 'dest': /my/folder/
+
 ```
