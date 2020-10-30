@@ -8,8 +8,9 @@ from keep import cli, utils
 @click.argument('pattern', required=False)
 @click.argument('arguments', nargs=-1, type=click.UNPROCESSED)
 @click.option('--safe', is_flag=True, help='Ignore missing arguments')
+@click.option('-n', '--no-confirm', is_flag=True, help='Don\'t ask confirm before running')
 @cli.pass_context
-def cli(ctx, pattern, arguments, safe):
+def cli(ctx, pattern, arguments, safe, no_confirm):
     """Executes a saved command."""
 
     if not pattern:
@@ -40,9 +41,15 @@ def cli(ctx, pattern, arguments, safe):
 
             final_cmd = utils.substitute_pcmd(pcmd, kargs, safe)
 
-            command = "$ {} :: {}".format(final_cmd, desc)
-            if click.confirm("Execute\n\t{}\n\n?".format(command), default=True):
+            if no_confirm:
+                isconfirmed = True
+            else:
+                command = "$ {} :: {}".format(final_cmd, desc)
+                isconfirmed = click.confirm("Execute\n\t{}\n\n?".format(command), default=True)
+
+            if isconfirmed:
                 os.system(final_cmd)
+
     elif matches == []:
         click.echo('No saved commands matches the pattern {}'.format(pattern))
     else:
