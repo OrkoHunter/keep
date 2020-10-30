@@ -1,6 +1,6 @@
 ![logo](https://raw.githubusercontent.com/OrkoHunter/keep/master/data/logo.png)
 
-![PyPI](https://img.shields.io/pypi/v/keep) ![PyPI - Downloads](https://img.shields.io/pypi/dm/keep)
+[![PyPI](https://img.shields.io/pypi/v/keep)](https://github.com/orkohunter/keep/releases) ![PyPI - Downloads](https://img.shields.io/pypi/dm/keep)
 
 # A Meta CLI toolkit
 
