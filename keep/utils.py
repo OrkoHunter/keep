@@ -234,21 +234,23 @@ def grep_commands(pattern):
 
 
 def select_command(commands):
-    click.echo("\n\n")
+    click.echo("", err=True)
     for idx, command in enumerate(commands):
         cmd, desc = command
-        click.secho(" " + str(idx + 1) + "\t", nl=False, fg='yellow')
-        click.secho("$ {} :: {}".format(cmd, desc), fg='green')
-    click.echo("\n\n")
+        click.secho(f" {idx + 1} \t", nl=False, fg='yellow', err=True)
+        click.secho(f" {cmd} :: {desc}", fg='green', err=True)
 
     selection = 1
     while True and len(commands) > 1:
+        click.echo("", err=True)
         selection = click.prompt(
-            "Select a command [1-{}] (0 to cancel)"
-            .format(len(commands)), type=int)
+            f"Select a command [1-{len(commands)}] (0 to cancel)",
+            type=int,
+            err=True
+        )
         if selection in range(len(commands) + 1):
             break
-        click.echo("Number is not in range")
+        click.echo("Number is not in range", err=True)
     return selection - 1
 
 

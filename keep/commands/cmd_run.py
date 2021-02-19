@@ -28,29 +28,28 @@ def cli(ctx, pattern, arguments, safe, no_confirm):
             for r, p, d in zip(raw_params, params, defaults):
                 if arguments:
                     val = arguments.pop(0)
-                    click.echo("{}: {}".format(p, val))
+                    click.echo(f"{p}: {val}", err=True)
                     kargs[r] = val
                 elif safe:
                     if d:
                         kargs[r] = d
                 else:
                     p_default = d if d else None
-                    val = click.prompt("Enter value for '{}'".format(p), default=p_default)
+                    val = click.prompt(f"Enter value for '{p}'", default=p_default, err=True)
                     kargs[r] = val
-            click.echo("\n")
 
             final_cmd = utils.substitute_pcmd(pcmd, kargs, safe)
 
             if no_confirm:
                 isconfirmed = True
             else:
-                command = "$ {} :: {}".format(final_cmd, desc)
-                isconfirmed = click.confirm("Execute\n\t{}\n\n?".format(command), default=True)
+                command = f"$ {final_cmd} :: {desc}"
+                isconfirmed = click.confirm(f"Execute\n\t{command}\n?", default=True, err=True)
 
             if isconfirmed:
                 os.system(final_cmd)
 
     elif matches == []:
-        click.echo('No saved commands matches the pattern {}'.format(pattern))
+        click.echo(f'No saved commands matches the pattern {pattern}', err=True)
     else:
-        click.echo("No commands to run, Add one by 'keep new'. ")
+        click.echo("No commands to run, Add one by 'keep new'. ", err=True)
