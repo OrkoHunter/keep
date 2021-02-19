@@ -239,10 +239,10 @@ def select_command(commands):
         cmd, desc = command
         click.secho(f" {idx + 1} \t", nl=False, fg='yellow', err=True)
         click.secho(f" {cmd} :: {desc}", fg='green', err=True)
-    click.echo("", err=True)
 
     selection = 1
     while True and len(commands) > 1:
+        click.echo("", err=True)
         selection = click.prompt(
             f"Select a command [1-{len(commands)}] (0 to cancel)",
             type=int,
