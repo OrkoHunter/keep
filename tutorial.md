@@ -14,7 +14,7 @@
 # Commands
 
 <dl>
-  <dt><a href="https://github.com/OrkoHunter/keep/blob/master/keep/commands/cmd_update.py">edit</a></dt>
+  <dt><a href="https://github.com/OrkoHunter/keep/blob/master/keep/commands/cmd_edit.py">edit</a></dt>
   <dd>Edit the saved commands and their descriptions.</dd>
 
   <dt><a href="https://github.com/OrkoHunter/keep/blob/master/keep/commands/cmd_grep.py">grep</a> "PATTERN"</dt>
