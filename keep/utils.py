@@ -69,7 +69,7 @@ def list_commands(ctx):
 
     commands = read_commands()
     for i, (cmd, fields) in enumerate(commands.items()):
-        table_data.append([str(i+1), '$ ' + cmd, fields['desc'], fields['alias']])
+        table_data.append([str(i + 1), '$ ' + cmd, fields['desc'], fields['alias']])
 
     table = AsciiTable(table_data)
     max_width = table.table_width//3
@@ -215,7 +215,7 @@ def grep_commands(pattern):
         for i, (cmd, fields) in enumerate(commands.items()):
             desc = fields['desc']
             alias = fields['alias']
-            if pattern.isdigit() and pattern == str(i+1):
+            if pattern.isdigit() and pattern == str(i + 1):
                 result.clear()
                 result.append((cmd, desc))
                 break
