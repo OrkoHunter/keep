@@ -64,12 +64,12 @@ def first_time_use(ctx):
 
 
 def list_commands(ctx):
-    table_data = [['Command', 'Description', 'Alias']]
+    table_data = [['Id', 'Command', 'Description', 'Alias']]
     no_of_columns = len(table_data[0])
 
     commands = read_commands()
-    for cmd, fields in commands.items():
-        table_data.append(['$ ' + cmd, fields['desc'], fields['alias']])
+    for i, (cmd, fields) in enumerate(commands.items()):
+        table_data.append([str(i+1), '$ ' + cmd, fields['desc'], fields['alias']])
 
     table = AsciiTable(table_data)
     max_width = table.table_width//3
@@ -212,24 +212,29 @@ def grep_commands(pattern):
     result = None
     if commands:
         result = []
-        for cmd, fields in commands.items():
+        for i, (cmd, fields) in enumerate(commands.items()):
             desc = fields['desc']
             alias = fields['alias']
-            if alias == pattern and alias.strip() != "":
+            if pattern.isdigit() and pattern == str(i+1):
                 result.clear()
                 result.append((cmd, desc))
                 break
-            if re.search(pattern, cmd + " :: " + desc):
-                result.append((cmd, desc))
-                continue
-            # Show if all the parts of the pattern are in one command/desc
-            keywords_len = len(pattern.split())
-            i_keyword = 0
-            for keyword in pattern.split():
-                if keyword.lower() in cmd.lower() or keyword.lower() in desc.lower():
-                    i_keyword += 1
-            if i_keyword == keywords_len:
-                result.append((cmd, desc))
+            else:
+                if alias == pattern and alias.strip() != "":
+                    result.clear()
+                    result.append((cmd, desc))
+                    break
+                if re.search(pattern, cmd + " :: " + desc):
+                    result.append((cmd, desc))
+                    continue
+                # Show if all the parts of the pattern are in one command/desc
+                keywords_len = len(pattern.split())
+                i_keyword = 0
+                for keyword in pattern.split():
+                    if keyword.lower() in cmd.lower() or keyword.lower() in desc.lower():
+                        i_keyword += 1
+                if i_keyword == keywords_len:
+                    result.append((cmd, desc))
     return result
 
 
