@@ -80,29 +80,29 @@ To enable command-line completion (TAB completion) follow these steps for the sh
 
 1. Create a directory in your home directory called `.bash`
 
-        mkdir -p ~/.bash
+        mkdir -p $HOME/.bash
 
-2. Copy [completion/keep.bash](https://github.com/OrkoHunter/keep/blob/master/completions/keep.bash) to `~/.bash/keep`
+2. Copy [completion/keep.bash](https://github.com/OrkoHunter/keep/blob/master/completions/keep.bash) to `$HOME/.bash/keep`
 
-        curl -SLo "~/.bash/keep" "https://raw.githubusercontent.com/OrkoHunter/keep/master/completions/keep.bash"
+        curl -SLo "$HOME/.bash/keep" "https://raw.githubusercontent.com/OrkoHunter/keep/master/completions/keep.bash"
 
-3. Add the following lines to `~/.bashrc` file
+3. Add the following lines to `$HOME/.bashrc` file
 
-        [ -f "~/.bash/keep.bash" ] && . "~/.bash/keep"
+        [ -f "$HOME/.bash/keep" ] && . "$HOME/.bash/keep"
 
 #### zsh
 
 1. Create a directory in your home called `.zsh`
 
-        mkdir -p ~/.zsh
+        mkdir -p $HOME/.zsh
 
-2. Copy [completion/keep.zsh](https://github.com/OrkoHunter/keep/blob/master/completions/keep.zsh) to `~/.zsh/_keep`
+2. Copy [completion/keep.zsh](https://github.com/OrkoHunter/keep/blob/master/completions/keep.zsh) to `$HOME/.zsh/_keep`
 
-        curl -SLo "~/.zsh/_keep" "https://raw.githubusercontent.com/OrkoHunter/keep/master/completions/keep.zsh"
+        curl -SLo "$HOME/.zsh/_keep" "https://raw.githubusercontent.com/OrkoHunter/keep/master/completions/keep.zsh"
 
-3. Add the following lines inside `~/.zshrc` file
+3. Add the following lines inside `$HOME/.zshrc` file
 
-        fpath=(~/.zsh $fpath)
+        fpath=($HOME/.zsh $fpath)
         autoload -Uz compinit && compinit
 
 ### Contribute
