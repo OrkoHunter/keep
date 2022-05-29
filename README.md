@@ -1,4 +1,6 @@
-![logo](https://raw.githubusercontent.com/OrkoHunter/keep/master/data/logo.png)
+![logo](https://raw.githubusercontent.com/OrkoHunter/keep/master/data/logo.png#gh-light-mode-only)
+
+![logo](./data/logo-white.png#gh-dark-mode-only)
 
 [![PyPI](https://img.shields.io/pypi/v/keep)](https://github.com/orkohunter/keep/releases) ![PyPI - Downloads](https://img.shields.io/pypi/dm/keep)
 
