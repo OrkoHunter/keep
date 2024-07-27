@@ -1,4 +1,4 @@
 click
 requests
-terminaltables
+terminaltables3
 PyGithub==1.43.7
