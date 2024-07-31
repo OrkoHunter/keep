@@ -1,0 +1,24 @@
+[project]
+name = "keep"
+version = "2.10.1"
+description = "Personal shell command keeper"
+readme = "README.md"
+authors = [
+    { name = "Himanshu Mishra", email = "himanshu.mishra.kgp@gmail.com" },
+]
+dependencies = ["PyGithub", "click", "requests", "terminaltables3"]
+requires-python = ">=3.8"
+
+[project.urls]
+Homepage = "https://github.com/orkohunter/keep"
+Downloads = "https://github.com/orkohunter/keep/archive/master.zip"
+
+[project.scripts]
+keep = "keep.cli:cli"
+
+[tool.flit.sdist]
+include = ["completions/"]
+
+[build-system]
+requires = ["flit_core>=3.4"]
+build-backend = "flit_core.buildapi"

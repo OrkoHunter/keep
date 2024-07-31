@@ -9,7 +9,7 @@ import sys
 import time
 import click
 import requests
-from terminaltables import AsciiTable
+from terminaltables3 import AsciiTable
 from textwrap import wrap
 
 from keep import about

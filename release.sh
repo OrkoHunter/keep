@@ -2,5 +2,5 @@
 # pip install twine wheel
 rm -rf build/*
 rm -rf dist/*
-python setup.py sdist bdist_wheel
+python -m build
 twine upload dist/*

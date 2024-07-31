@@ -1,4 +1,0 @@
-click
-requests
-terminaltables
-PyGithub==1.43.7
