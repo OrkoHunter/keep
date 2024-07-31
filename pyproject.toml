@@ -1,6 +1,6 @@
 [project]
 name = "keep"
-version = "2.10.1"
+version = "2.11"
 description = "Personal shell command keeper"
 readme = "README.md"
 authors = [
