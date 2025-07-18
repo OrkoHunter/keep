@@ -30,6 +30,7 @@ is only place where he\'ll ever have use it?
 ## Features
 
 - Save a new command with a brief description
+- Save notes or command sets with `keep new notes` and `keep new set`
 - Search the saved commands using powerful patterns
 - Save the commands as a secret GitHub gist
 - Use `keep push` and `keep pull` to sync the commands between GitHub

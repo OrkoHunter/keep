@@ -193,6 +193,28 @@ def save_command(cmd, desc, alias=""):
         f.write(json.dumps(commands))
 
 
+def save_note(name, note):
+    """Save a note text with a given name."""
+    json_path = os.path.join(dir_path, 'notes.json')
+    notes = {}
+    if os.path.exists(json_path):
+        notes = json.loads(open(json_path, 'r').read())
+    notes[name] = note
+    with open(json_path, 'w') as f:
+        f.write(json.dumps(notes))
+
+
+def save_command_set(name, commands):
+    """Save a set of commands under a name."""
+    json_path = os.path.join(dir_path, 'sets.json')
+    sets = {}
+    if os.path.exists(json_path):
+        sets = json.loads(open(json_path, 'r').read())
+    sets[name] = commands
+    with open(json_path, 'w') as f:
+        f.write(json.dumps(sets))
+
+
 def read_commands():
     json_path = os.path.join(dir_path, 'commands.json')
     if not os.path.exists(json_path):
