@@ -246,7 +246,13 @@ def grep_commands(pattern):
                     result.clear()
                     result.append((cmd, desc))
                     break
-                if re.search(pattern, cmd + " :: " + desc):
+                try:
+                    found = re.search(pattern, cmd + " :: " + desc)
+                except re.error:
+                    # Invalid regex: fall back to a literal substring match
+                    # instead of crashing with a traceback.
+                    found = pattern in (cmd + " :: " + desc)
+                if found:
                     result.append((cmd, desc))
                     continue
                 # Show if all the parts of the pattern are in one command/desc
